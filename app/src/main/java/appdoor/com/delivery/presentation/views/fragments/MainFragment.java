@@ -33,10 +33,5 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ViewAnimator.animate(mEtTable)
-                .translationX(-1000, 0)
-                //.slideLeft()
-                .duration(300)
-                .start();
     }
 }
