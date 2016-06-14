@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TableNamber" parent="Base.V12.Widget.AppCompat.EditText">
+        <item name="android:textSize">60sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">0dp</item>
+    </style>
 </resources>

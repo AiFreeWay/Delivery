@@ -19,14 +19,22 @@ public class FragmentRouter {
     }
 
     public void show(Fragment fragment) {
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(mViewId, fragment);
-        transaction.addToBackStack(BACK_STACK_TAG);
-        transaction.commit();
+        if (!isFragmentShowNow(fragment)) {
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(mViewId, fragment);
+            transaction.addToBackStack(BACK_STACK_TAG);
+            transaction.commit();
+        }
+    }
+
+    private boolean isFragmentShowNow(Fragment fragment) {
+        Fragment lastFragment = mFragmentManager.findFragmentById(mViewId);
+        return lastFragment != null && mFragmentManager.findFragmentById(mViewId).getClass().isInstance(fragment);
     }
 
     public void back() {
-        mFragmentManager.popBackStack();
+        if (mFragmentManager.getBackStackEntryCount() > 1)
+            mFragmentManager.popBackStack();
     }
 
     public void setViewId(int id) {

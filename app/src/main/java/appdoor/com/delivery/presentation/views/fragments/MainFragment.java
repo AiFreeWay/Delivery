@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.florent37.viewanimator.ViewAnimator;
+
 import appdoor.com.delivery.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,9 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mTvTest.setText("Is my text");
+        ViewAnimator.animate(mTvTest)
+                .translationX(-1000, 0)
+                .duration(300)
+                .start();
     }
 }

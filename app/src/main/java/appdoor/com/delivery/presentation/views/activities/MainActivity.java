@@ -3,6 +3,7 @@ package appdoor.com.delivery.presentation.views.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,13 @@ public class MainActivity extends BaseActivity {
         mToolbar.setTitle("Hello world!!!");
         initDI();
         mRouter.show(mFactory.getFragment(FragmentsFactory.Fragments.MAIN));
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+            mRouter.back();
+        return true;
     }
 
     @Override
