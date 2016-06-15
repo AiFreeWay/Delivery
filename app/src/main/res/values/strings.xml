@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Delivery</string>
+    <string name="table_hint">Ваш стол</string>
+    <string name="thanks">Спасибо!</string>
+    <string name="fmt_main_dialog_description">1 минуту на подтверждение у администратора</string>
+    <string name="ok">OK</string>
 </resources>
