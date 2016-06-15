@@ -1,17 +1,12 @@
 package appdoor.com.delivery.presentation.views.fragments;
 
-
-import android.app.Dialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
