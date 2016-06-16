@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ListView;
 
 import javax.inject.Inject;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity {
         mViewController = new ActivityMainController(this);
         mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController), mViewController.getLayoutInflater());
         mLvMenu.setAdapter(mAdapter);
+        mLvMenu.addHeaderView(getHeaderView());
         mAdapter.loadData(mMenuFactory.getMenuItems());
         mRouter.show(mFragmentFactory.getFragment(FragmentsFactory.Fragments.ENTRANCE));
     }
@@ -107,6 +109,10 @@ public class MainActivity extends BaseActivity {
                 .activityModule(new ActivityModule(this))
                 .build();
         mComponent.inject(this);
+    }
+
+    private View getHeaderView() {
+        return mViewController.getLayoutInflater().inflate(R.layout.v_header_menu, mLvMenu, false);
     }
 
     public ListView getLvMenu() {
