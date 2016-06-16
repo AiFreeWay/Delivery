@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ListView;
 
 import javax.inject.Inject;
@@ -60,7 +58,7 @@ public class MainActivity extends BaseActivity {
         mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController), mViewController.getLayoutInflater());
         mLvMenu.setAdapter(mAdapter);
         mAdapter.loadData(mMenuFactory.getMenuItems());
-        mRouter.show(mFragmentFactory.getFragment(FragmentsFactory.Fragments.MAIN));
+        mRouter.show(mFragmentFactory.getFragment(FragmentsFactory.Fragments.ENTRANCE));
     }
 
     @Override

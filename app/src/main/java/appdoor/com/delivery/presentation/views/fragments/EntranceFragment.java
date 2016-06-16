@@ -17,18 +17,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainFragment extends BaseFragment {
+public class EntranceFragment extends BaseFragment {
 
-    @BindView(R.id.fmt_main_et_table)
+    @BindView(R.id.fmt_entrance_et_table)
     EditText mEtTable;
-    @BindView(R.id.fmt_main_btn_enter)
+    @BindView(R.id.fmt_entrance_btn_enter)
     Button mBtnEnter;
 
     private MaterialStyledDialog mDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fmt_main, container, false);
+        View view = inflater.inflate(R.layout.fmt_entrance, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -46,6 +46,7 @@ public class MainFragment extends BaseFragment {
                 .setStyle(Style.HEADER_WITH_TITLE)
                 .setDescription(R.string.fmt_main_dialog_description)
                 .setPositive(getString(R.string.ok), null)
+                .setNegative(getString(R.string.cancel), null)
                 .build();
 
         mBtnEnter.setOnClickListener(v -> {

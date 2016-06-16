@@ -17,9 +17,11 @@ public class MenuFactory {
     }
 
     private void generateFragments() {
-        mMenuItems.add(new MenuItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "Главный", FragmentsFactory.Fragments.MAIN));
-        mMenuItems.add(new MenuItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "Главный 2", FragmentsFactory.Fragments.MAIN));
-        mMenuItems.add(new MenuItem(R.mipmap.ic_launcher, R.mipmap.ic_launcher, "Главный   3", FragmentsFactory.Fragments.MAIN));
+        mMenuItems.add(new MenuItem(R.drawable.ic_entrance_selected, R.drawable.ic_entrance_selected, "Войти", FragmentsFactory.Fragments.ENTRANCE));
+        mMenuItems.add(new MenuItem(R.drawable.ic_menu, R.drawable.ic_menu_selected, "Меню", FragmentsFactory.Fragments.ENTRANCE));
+        mMenuItems.add(new MenuItem(R.drawable.ic_service, R.drawable.ic_service_selected, "Услуги", FragmentsFactory.Fragments.ENTRANCE));
+        mMenuItems.add(new MenuItem(R.drawable.ic_ordered, R.drawable.ic_ordered_selected, "Заказанное", FragmentsFactory.Fragments.ENTRANCE));
+        mMenuItems.add(new MenuItem(R.drawable.ic_info, R.drawable.ic_info_selected, "О заведении", FragmentsFactory.Fragments.ENTRANCE));
     }
 
     public List<MenuItem> getMenuItems() {

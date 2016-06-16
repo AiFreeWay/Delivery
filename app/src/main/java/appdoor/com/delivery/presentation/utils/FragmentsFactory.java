@@ -4,7 +4,7 @@ package appdoor.com.delivery.presentation.utils;
 import java.util.ArrayList;
 
 import appdoor.com.delivery.presentation.views.fragments.BaseFragment;
-import appdoor.com.delivery.presentation.views.fragments.MainFragment;
+import appdoor.com.delivery.presentation.views.fragments.EntranceFragment;
 
 public class FragmentsFactory {
 
@@ -16,7 +16,7 @@ public class FragmentsFactory {
     }
 
     private void generateFragments() {
-        mFragmentsLIst.add(Fragments.MAIN.id, new MainFragment());
+        mFragmentsLIst.add(Fragments.ENTRANCE.id, new EntranceFragment());
     }
 
     public BaseFragment getFragment(Fragments fragmentIndefinder) {
@@ -24,7 +24,7 @@ public class FragmentsFactory {
     }
 
     public enum Fragments {
-        MAIN(0);
+        ENTRANCE(0);
 
         int id;
         Fragments(int id) {
