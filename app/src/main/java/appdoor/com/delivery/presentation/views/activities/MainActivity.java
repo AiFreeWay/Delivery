@@ -6,35 +6,48 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import javax.inject.Inject;
 
 import appdoor.com.delivery.R;
+import appdoor.com.delivery.presentation.adapters.MultyAdapter;
+import appdoor.com.delivery.presentation.adapters.view_binders.MenuBinder;
 import appdoor.com.delivery.presentation.di.components.ActivityComponent;
 import appdoor.com.delivery.presentation.di.components.DaggerActivityComponent;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
+import appdoor.com.delivery.presentation.models.MenuItem;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
-import appdoor.com.delivery.presentation.views.fragments.MainFragment;
+import appdoor.com.delivery.presentation.utils.MenuFactory;
+import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
     @Inject
-    FragmentsFactory mFactory;
+    FragmentsFactory mFragmentFactory;
     @Inject
     FragmentRouter mRouter;
+    @Inject
+    MenuFactory mMenuFactory;
+
     @BindView(R.id.ac_main_toolbar)
     Toolbar mToolbar;
     @BindView(R.id.ac_main_dl_menu)
     DrawerLayout mDlMenu;
+    @BindView(R.id.ac_main_lv_menu)
+    ListView mLvMenu;
 
     private ActivityComponent mComponent;
     private ActionBarDrawerToggle mDrawerToggle;
+    private MultyAdapter<MenuItem> mAdapter;
+    private ActivityMainController mViewController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +56,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         initToolbar();
         initDI();
-        mRouter.show(mFactory.getFragment(FragmentsFactory.Fragments.MAIN));
+        mViewController = new ActivityMainController(this);
+        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController), mViewController.getLayoutInflater());
+        mLvMenu.setAdapter(mAdapter);
+        mAdapter.loadData(mMenuFactory.getMenuItems());
+        mRouter.show(mFragmentFactory.getFragment(FragmentsFactory.Fragments.MAIN));
     }
 
     @Override
@@ -66,7 +83,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return mDrawerToggle.onOptionsItemSelected(item);
     }
 
@@ -81,21 +98,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initToolbar() {
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDlMenu, R.string.app_name, R.string.ok) {
-
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                invalidateOptionsMenu();
-            }
-        };
+        mDrawerToggle = new ToolbarDrawerToogle(this, mDlMenu, mToolbar, R.string.app_name, R.string.ok);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDlMenu.addDrawerListener(mDrawerToggle);
         mToolbar.setTitle(R.string.app_name);
@@ -106,5 +109,9 @@ public class MainActivity extends BaseActivity {
                 .activityModule(new ActivityModule(this))
                 .build();
         mComponent.inject(this);
+    }
+
+    public ListView getLvMenu() {
+        return mLvMenu;
     }
 }
