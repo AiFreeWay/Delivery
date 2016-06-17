@@ -20,13 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ListView android:id="@+id/left_drawer"
-            android:layout_width="?android:attr/actionBarSize"
+        <ListView android:id="@+id/ac_main_lv_menu"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="279dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
+            android:divider="@color/colorLightGrey"
+            android:dividerHeight="1dp"
             android:background="#fff"/>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
