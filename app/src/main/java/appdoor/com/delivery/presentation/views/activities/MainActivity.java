@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
-
-import javax.inject.Inject;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.adapters.MultyAdapter;
@@ -19,8 +18,6 @@ import appdoor.com.delivery.presentation.di.components.ActivityComponent;
 import appdoor.com.delivery.presentation.di.components.DaggerActivityComponent;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
 import appdoor.com.delivery.presentation.models.MenuItem;
-import appdoor.com.delivery.presentation.utils.FragmentRouter;
-import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
 import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
@@ -29,12 +26,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    @Inject
-    FragmentsFactory mFragmentFactory;
-    @Inject
-    FragmentRouter mRouter;
-    @Inject
-    MenuFactory mMenuFactory;
+    public static final String MENU_ITEM_KEY = "menuitemkkk";
 
     @BindView(R.id.ac_main_toolbar)
     Toolbar mToolbar;
@@ -56,11 +48,13 @@ public class MainActivity extends BaseActivity {
         initToolbar();
         initDI();
         mViewController = new ActivityMainController(this);
-        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController), mViewController.getLayoutInflater());
+        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController));
         mLvMenu.setAdapter(mAdapter);
         mLvMenu.addHeaderView(getHeaderView());
-        mAdapter.loadData(mMenuFactory.getMenuItems());
-        mRouter.show(mFragmentFactory.getFragment(FragmentsFactory.Fragments.ENTRANCE));
+        mAdapter.loadData(mViewController.getMenuItems());
+
+        if (savedInstanceState == null)
+            mViewController.showFragmentsFromMenu(MenuFactory.MenuItems.ENTRANCE);
     }
 
     @Override
@@ -78,7 +72,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK)
-            mRouter.back();
+            mViewController.popBack();
         return true;
     }
 
@@ -108,14 +102,29 @@ public class MainActivity extends BaseActivity {
         mComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .build();
-        mComponent.inject(this);
     }
 
     private View getHeaderView() {
         return mViewController.getLayoutInflater().inflate(R.layout.v_header_menu, mLvMenu, false);
     }
 
+    public void closeMenu() {
+        mDlMenu.closeDrawer(Gravity.LEFT);
+    }
+
+    public void setTitle(String title) {
+        mToolbar.setTitle(title);
+    }
+
     public ListView getLvMenu() {
         return mLvMenu;
+    }
+
+    public MultyAdapter<MenuItem> getAdapter() {
+        return mAdapter;
+    }
+
+    public ActivityMainController getViewController() {
+        return mViewController;
     }
 }

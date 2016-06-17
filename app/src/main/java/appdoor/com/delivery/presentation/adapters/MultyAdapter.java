@@ -19,12 +19,10 @@ public class MultyAdapter<T> extends BaseAdapter {
 
     private List<T> mData;
     private AbstractBinder<T> mBinder;
-    private LayoutInflater mLayoutInflater;
 
-    public MultyAdapter(AbstractBinder<T> binder, LayoutInflater inflater) {
+    public MultyAdapter(AbstractBinder<T> binder) {
         mData = Collections.emptyList();
         mBinder = binder;
-        mLayoutInflater = inflater;
     }
 
     @Override
@@ -45,13 +43,15 @@ public class MultyAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         T item = getItem(position);
-        if (view == null)
-            view = mLayoutInflater.inflate(R.layout.v_menu_item, parent, false);
         return mBinder.bind(view, item);
     }
 
     public void loadData(@Nullable  List<T> data) {
         mData = data;
         notifyDataSetChanged();
+    }
+
+    public List<T> getData() {
+        return mData;
     }
 }

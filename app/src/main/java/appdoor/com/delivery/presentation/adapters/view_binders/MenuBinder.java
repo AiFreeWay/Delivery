@@ -1,11 +1,10 @@
 package appdoor.com.delivery.presentation.adapters.view_binders;
 
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import appdoor.com.delivery.R;
@@ -22,16 +21,29 @@ public class MenuBinder implements AbstractBinder<MenuItem> {
     TextView mTvTitle;
 
     private ActivityMainController mViewController;
+    private ListView mParent;
+    private LayoutInflater mLayoutInflater;
 
     public MenuBinder(ActivityMainController controller) {
         mViewController = controller;
+        mParent = mViewController.getActivity().getLvMenu();
+        mLayoutInflater = mViewController.getLayoutInflater();
     }
 
     @Override
     public View bind(View view, MenuItem data) {
+        if (view == null)
+            view = mLayoutInflater.inflate(R.layout.v_menu_item, mParent, false);
         ButterKnife.bind(this, view);
-        mIvLeftImage.setImageDrawable(mViewController.getDrawableByRes(data.getIconRes()));
+
+        view.setOnClickListener(v -> mViewController.showFragments(data));
         mTvTitle.setText(data.getTitle());
+
+        if (data.isSelected())
+            mIvLeftImage.setImageDrawable(mViewController.getDrawableByRes(data.getIconSelectedRes()));
+        else
+            mIvLeftImage.setImageDrawable(mViewController.getDrawableByRes(data.getIconRes()));
+
         return view;
     }
 }

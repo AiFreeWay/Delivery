@@ -1,14 +1,17 @@
 package appdoor.com.delivery.presentation.models;
 
 
+import java.io.Serializable;
+
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 
-public class MenuItem {
+public class MenuItem implements Serializable {
 
     private int iconRes;
     private int iconSelectedRes;
     private String title;
     private FragmentsFactory.Fragments fragmentsType;
+    private boolean isSelected;
 
     public MenuItem() {
     }
@@ -50,5 +53,13 @@ public class MenuItem {
 
     public void setFragmentsType(FragmentsFactory.Fragments fragmentsType) {
         this.fragmentsType = fragmentsType;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
