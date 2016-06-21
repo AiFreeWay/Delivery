@@ -43,11 +43,7 @@ public class FragmentFoodsCtrl {
     }
 
     public void toOrder(FoodItem data) {
-        try {
-            mFragment.showDialog(data);
-        } catch (Exception e) {
-            Log.d("++++", "FragmentFoodsCtrl: toOrder "+e.toString());
-        }
+
     }
 
     public LayoutInflater getLayoutInflater() {
