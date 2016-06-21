@@ -57,6 +57,7 @@ public class FragmentMenuCtrl {
 
     public void showFragment(MenuItem category) {
         BaseFragment fragment = mFragmentFactory.getFragment(FragmentsFactory.Fragments.FOODS);
+        fragment.getArguments().putSerializable(BaseFragment.APP_MENU_ITEM_KEY, mFragment.getAppMenuItem());
         fragment.getArguments().putSerializable(FoodsFragment.MENU_ITEM_KEY, category);
         mRouter.show(fragment);
     }

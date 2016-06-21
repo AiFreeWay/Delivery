@@ -21,6 +21,10 @@ public abstract class BaseFragment extends Fragment {
             getMainActivity().getViewController().onFragmentLoad(mAppMenuItem);
     }
 
+    public AppMenuItem getAppMenuItem() {
+        return mAppMenuItem;
+    }
+
     public MainActivity getMainActivity() {
         return (MainActivity) getActivity();
     }
