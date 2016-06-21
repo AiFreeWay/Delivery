@@ -54,6 +54,7 @@ public class ActivityMainCtrl {
     }
 
     public void onFragmentLoad(AppMenuItem item) {
+        mActivity.closeMenu();
         mActivity.setTitle(item.getTitle());
         selectedMenuItems(item);
         mActivity.getAdapter().notifyDataSetChanged();
