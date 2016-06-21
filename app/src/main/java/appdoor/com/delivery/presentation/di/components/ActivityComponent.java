@@ -1,19 +1,21 @@
 package appdoor.com.delivery.presentation.di.components;
 
+import appdoor.com.delivery.domain.interfaces.Repository;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
 import appdoor.com.delivery.presentation.di.scopes.PerActivity;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
-import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
-import appdoor.com.delivery.presentation.views.activities.MainActivity;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
+import appdoor.com.delivery.presentation.view_controllers.FragmentMenuCtrl;
 import dagger.Component;
 
 @PerActivity
-@Component(modules = {ActivityModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
 public interface ActivityComponent {
 
-    void inject(ActivityMainController controller);
+    void inject(ActivityMainCtrl controller);
+    void inject(FragmentMenuCtrl controller);
 
     FragmentRouter provideFragmentRouter();
     FragmentsFactory provideFragmentsFactory();

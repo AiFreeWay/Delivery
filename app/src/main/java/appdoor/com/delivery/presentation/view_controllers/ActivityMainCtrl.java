@@ -3,6 +3,7 @@ package appdoor.com.delivery.presentation.view_controllers;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.views.activities.MainActivity;
 import appdoor.com.delivery.presentation.views.fragments.BaseFragment;
 
-public class ActivityMainController implements ViewController {
+public class ActivityMainCtrl {
 
     @Inject
     FragmentsFactory mFragmentFactory;
@@ -28,10 +29,16 @@ public class ActivityMainController implements ViewController {
     private MainActivity mActivity;
     private LayoutInflater mLayoutInflater;
 
-    public ActivityMainController(MainActivity mActivity) {
+    public ActivityMainCtrl(MainActivity mActivity) {
         this.mActivity = mActivity;
         mLayoutInflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mActivity.getComponent().inject(this);
+    }
+
+    public void start(Bundle savedInstanceState) {
+        mActivity.getAdapter().loadData(getMenuItems());
+        if (savedInstanceState == null)
+            showFragmentsFromMenu(MenuFactory.MenuItems.ENTRANCE);
     }
 
     public void showFragmentsFromMenu(MenuFactory.MenuItems menuItemsId) {

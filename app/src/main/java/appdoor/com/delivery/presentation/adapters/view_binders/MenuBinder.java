@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.models.MenuItem;
-import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,11 +20,11 @@ public class MenuBinder implements AbstractBinder<MenuItem> {
     @BindView(R.id.v_menu_item_tv_title)
     TextView mTvTitle;
 
-    private ActivityMainController mViewController;
+    private ActivityMainCtrl mViewController;
     private ListView mParent;
     private LayoutInflater mLayoutInflater;
 
-    public MenuBinder(ActivityMainController controller) {
+    public MenuBinder(ActivityMainCtrl controller) {
         mViewController = controller;
         mParent = mViewController.getActivity().getLvMenu();
         mLayoutInflater = mViewController.getLayoutInflater();

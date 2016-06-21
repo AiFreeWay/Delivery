@@ -2,8 +2,6 @@ package appdoor.com.delivery.presentation.adapters;
 
 
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,9 +9,7 @@ import android.widget.BaseAdapter;
 import java.util.Collections;
 import java.util.List;
 
-import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.adapters.view_binders.AbstractBinder;
-import appdoor.com.delivery.presentation.view_controllers.ViewController;
 
 public class MultyAdapter<T> extends BaseAdapter {
 

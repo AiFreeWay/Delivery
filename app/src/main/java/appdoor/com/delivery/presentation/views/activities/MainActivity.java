@@ -20,7 +20,7 @@ import appdoor.com.delivery.presentation.di.modules.ActivityModule;
 import appdoor.com.delivery.presentation.models.MenuItem;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
-import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
     private ActivityComponent mComponent;
     private ActionBarDrawerToggle mDrawerToggle;
     private MultyAdapter<MenuItem> mAdapter;
-    private ActivityMainController mViewController;
+    private ActivityMainCtrl mViewController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +47,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         initToolbar();
         initDI();
-        mViewController = new ActivityMainController(this);
+        mViewController = new ActivityMainCtrl(this);
         mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController));
         mLvMenu.setAdapter(mAdapter);
         mLvMenu.addHeaderView(getHeaderView());
-        mAdapter.loadData(mViewController.getMenuItems());
-
-        if (savedInstanceState == null)
-            mViewController.showFragmentsFromMenu(MenuFactory.MenuItems.ENTRANCE);
+        mViewController.start(savedInstanceState);
     }
 
     @Override
@@ -100,6 +97,7 @@ public class MainActivity extends BaseActivity {
 
     private void initDI() {
         mComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getDeliveryApplication().getDaggerComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }
@@ -124,7 +122,7 @@ public class MainActivity extends BaseActivity {
         return mAdapter;
     }
 
-    public ActivityMainController getViewController() {
+    public ActivityMainCtrl getViewController() {
         return mViewController;
     }
 }
