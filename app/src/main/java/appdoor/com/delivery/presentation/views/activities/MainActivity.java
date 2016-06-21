@@ -13,12 +13,11 @@ import android.widget.ListView;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.adapters.MultyAdapter;
-import appdoor.com.delivery.presentation.adapters.view_binders.MenuBinder;
+import appdoor.com.delivery.presentation.adapters.view_binders.AppMenuBinder;
 import appdoor.com.delivery.presentation.di.components.ActivityComponent;
 import appdoor.com.delivery.presentation.di.components.DaggerActivityComponent;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
-import appdoor.com.delivery.presentation.models.MenuItem;
-import appdoor.com.delivery.presentation.utils.MenuFactory;
+import appdoor.com.delivery.presentation.models.AppMenuItem;
 import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
 import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import butterknife.BindView;
@@ -37,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
     private ActivityComponent mComponent;
     private ActionBarDrawerToggle mDrawerToggle;
-    private MultyAdapter<MenuItem> mAdapter;
+    private MultyAdapter<AppMenuItem> mAdapter;
     private ActivityMainCtrl mViewController;
 
     @Override
@@ -48,7 +47,7 @@ public class MainActivity extends BaseActivity {
         initToolbar();
         initDI();
         mViewController = new ActivityMainCtrl(this);
-        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController));
+        mAdapter = new MultyAdapter<AppMenuItem>(new AppMenuBinder(mViewController));
         mLvMenu.setAdapter(mAdapter);
         mLvMenu.addHeaderView(getHeaderView());
         mViewController.start(savedInstanceState);
@@ -118,7 +117,7 @@ public class MainActivity extends BaseActivity {
         return mLvMenu;
     }
 
-    public MultyAdapter<MenuItem> getAdapter() {
+    public MultyAdapter<AppMenuItem> getAdapter() {
         return mAdapter;
     }
 

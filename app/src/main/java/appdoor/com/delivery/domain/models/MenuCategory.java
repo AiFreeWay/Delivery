@@ -5,15 +5,17 @@ public class MenuCategory {
 
     private int id;
     private String title;
+    private String subTitle;
     private String description;
     private String image;
 
     public MenuCategory() {
     }
 
-    public MenuCategory(int id, String title, String description, String image) {
+    public MenuCategory(int id, String title, String subTitle,  String description, String image) {
         this.id = id;
         this.title = title;
+        this.subTitle = subTitle;
         this.description = description;
         this.image = image;
     }
@@ -32,6 +34,14 @@ public class MenuCategory {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     public String getDescription() {

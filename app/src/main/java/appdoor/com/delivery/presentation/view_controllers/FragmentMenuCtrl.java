@@ -1,7 +1,9 @@
 package appdoor.com.delivery.presentation.view_controllers;
 
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
 
 import java.util.List;
 
@@ -20,16 +22,24 @@ public class FragmentMenuCtrl {
     Interactor<List<MenuCategory>> mGetMenuCategory;
 
     private MenuFragment mFragment;
+    private LayoutInflater mLayoutInflater;
 
     public FragmentMenuCtrl(MenuFragment fragment) {
-        this.mFragment = fragment;
+        mFragment = fragment;
+        mLayoutInflater = (LayoutInflater) mFragment.getMainActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mFragment.getMainActivity().getComponent().inject(this);
     }
 
     public void start() {
-        mGetMenuCategory.execute().subscribe(foodMenu -> {
-            for (MenuCategory menuCategory : foodMenu)
-                Log.d("++++", "FragmentMenuCtrl: start "+menuCategory.getTitle());
-        }, e -> {});
+        mGetMenuCategory.execute().subscribe(foodMenu ->
+            mFragment.getAdapter().loadData(foodMenu), e -> {});
+    }
+
+    public LayoutInflater getLayoutInflater() {
+        return mLayoutInflater;
+    }
+
+    public MenuFragment getFragment() {
+        return mFragment;
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import appdoor.com.delivery.presentation.models.MenuItem;
+import appdoor.com.delivery.presentation.models.AppMenuItem;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
@@ -42,17 +42,17 @@ public class ActivityMainCtrl {
     }
 
     public void showFragmentsFromMenu(MenuFactory.MenuItems menuItemsId) {
-        MenuItem item = mMenuFactory.getFragment(menuItemsId);
+        AppMenuItem item = mMenuFactory.getFragment(menuItemsId);
         showFragments(item);
     }
 
-    public void showFragments(MenuItem item) {
+    public void showFragments(AppMenuItem item) {
         BaseFragment fragment = mFragmentFactory.getFragment(item.getFragmentsType());
         fragment.getArguments().putSerializable(BaseFragment.MENU_ITEM_KEY, item);
         mRouter.show(fragment);
     }
 
-    public void onFragmentLoad(MenuItem item) {
+    public void onFragmentLoad(AppMenuItem item) {
         mActivity.setTitle(item.getTitle());
         selectedMenuItems(item);
         mActivity.getAdapter().notifyDataSetChanged();
@@ -63,7 +63,7 @@ public class ActivityMainCtrl {
         mRouter.back();
     }
 
-    public List<MenuItem> getMenuItems() {
+    public List<AppMenuItem> getMenuItems() {
         return mMenuFactory.getMenuItems();
     }
 
@@ -79,10 +79,10 @@ public class ActivityMainCtrl {
         return mActivity.getResources().getDrawable(res);
     }
 
-    private void selectedMenuItems(MenuItem selectedItem) {
-        List<MenuItem> menuItems = mActivity.getAdapter()
+    private void selectedMenuItems(AppMenuItem selectedItem) {
+        List<AppMenuItem> appMenuItems = mActivity.getAdapter()
                 .getData();
-        for (MenuItem item : menuItems)
+        for (AppMenuItem item : appMenuItems)
             item.setSelected(item.getFragmentsType().id == selectedItem.getFragmentsType().id);
     }
 }
