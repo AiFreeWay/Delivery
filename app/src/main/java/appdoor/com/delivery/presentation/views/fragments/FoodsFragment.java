@@ -63,15 +63,4 @@ public class FoodsFragment extends BaseFragment {
     public MenuItem getMenuItem() {
         return mMenuItem;
     }
-
-    public void showDialog(FoodItem data) throws Exception {
-        new MaterialStyledDialog(getActivity())
-                .setTitle("Вы заказали: "+data.getTitle())
-                .setStyle(Style.HEADER_WITH_ICON)
-                .setDescription(data.getDescription()+"\nстоимость "+data.getSubTitle()+" р.")
-                .setPositive(getString(R.string.order_ok), null)
-                .setNegative(getString(R.string.order_cancel), null)
-                .build()
-                .show();
-    }
 }
