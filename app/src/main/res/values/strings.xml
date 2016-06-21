@@ -4,6 +4,7 @@
     <string name="thanks">Спасибо!</string>
     <string name="fmt_main_dialog_description">1 минуту на подтверждение у администратора</string>
     <string name="ok">OK</string>
-    <string name="order">Заказать</string>
     <string name="cancel">Я передумал</string>
+    <string name="order_cancel"><u>Отмена</u></string>
+    <string name="order_ok"><u>Заказать</u></string>
 </resources>

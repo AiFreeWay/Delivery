@@ -2,11 +2,18 @@ package appdoor.com.delivery.presentation.adapters.view_binders;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.github.florent37.viewanimator.ViewAnimator;
 import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.TimeUnit;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.domain.models.FoodItem;
@@ -28,7 +35,6 @@ public class FoodsBinder implements AbstractBinder<FoodItem> {
     TextView mTvSubTitle;
     @BindView(R.id.v_foods_tv_description)
     TextView mTvDescription;
-
 
     private FragmentFoodsCtrl mViewController;
     private ListView mParent;
@@ -57,8 +63,9 @@ public class FoodsBinder implements AbstractBinder<FoodItem> {
         mTvTitle.setText(data.getTitle());
         mTvSubTitle.setText(data.getSubTitle()+" р.");
         mTvDescription.setText(data.getDescription());
-
         view.setOnClickListener(v -> mViewController.toOrder(data));
         return view;
     }
+
+
 }

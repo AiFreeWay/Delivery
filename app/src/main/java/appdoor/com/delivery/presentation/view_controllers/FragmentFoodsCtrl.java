@@ -2,6 +2,7 @@ package appdoor.com.delivery.presentation.view_controllers;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -42,7 +43,11 @@ public class FragmentFoodsCtrl {
     }
 
     public void toOrder(FoodItem data) {
-        mFragment.showDialog(data);
+        try {
+            mFragment.showDialog(data);
+        } catch (Exception e) {
+            Log.d("++++", "FragmentFoodsCtrl: toOrder "+e.toString());
+        }
     }
 
     public LayoutInflater getLayoutInflater() {

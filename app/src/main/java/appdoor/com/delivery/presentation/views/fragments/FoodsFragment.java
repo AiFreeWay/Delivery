@@ -1,6 +1,8 @@
 package appdoor.com.delivery.presentation.views.fragments;
 
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ListView;
 
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
+import com.squareup.picasso.Picasso;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.domain.models.FoodItem;
@@ -61,7 +64,14 @@ public class FoodsFragment extends BaseFragment {
         return mMenuItem;
     }
 
-    public void showDialog(FoodItem data) {
-
+    public void showDialog(FoodItem data) throws Exception {
+        new MaterialStyledDialog(getActivity())
+                .setTitle("Вы заказали: "+data.getTitle())
+                .setStyle(Style.HEADER_WITH_ICON)
+                .setDescription(data.getDescription()+"\nстоимость "+data.getSubTitle()+" р.")
+                .setPositive(getString(R.string.order_ok), null)
+                .setNegative(getString(R.string.order_cancel), null)
+                .build()
+                .show();
     }
 }
