@@ -1,5 +1,9 @@
 package appdoor.com.delivery.data.repositories;
 
+import android.util.Log;
+
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,7 +12,8 @@ import javax.inject.Singleton;
 import appdoor.com.delivery.data.fast_store.FastStore;
 import appdoor.com.delivery.data.mock_store.MockStore;
 import appdoor.com.delivery.domain.interfaces.Repository;
-import appdoor.com.delivery.domain.models.MenuCategory;
+import appdoor.com.delivery.domain.models.FoodItem;
+import appdoor.com.delivery.domain.models.MenuItem;
 
 @Singleton
 public class RepositoryImpl implements Repository {
@@ -23,12 +28,17 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<MenuCategory> getFoodMenu() throws Exception {
-        List<MenuCategory> foodMenu = mFastStore.getFoodMenu();
+    public List<MenuItem> getMenu() throws Exception {
+        List<MenuItem> foodMenu = mFastStore.getMenu();
         if (foodMenu == null) {
-            foodMenu = mMockStore.getFoodMenu();
-            mFastStore.setFoodMenu(foodMenu);
+            foodMenu = mMockStore.getMenu();
+            mFastStore.setMenu(foodMenu);
         }
         return foodMenu;
+    }
+
+    @Override
+    public List<FoodItem> getFoods(int categoryId) throws Exception {
+        return mMockStore.getFoods();
     }
 }

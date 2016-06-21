@@ -3,9 +3,11 @@ package appdoor.com.delivery.domain.interfaces;
 
 import java.util.List;
 
-import appdoor.com.delivery.domain.models.MenuCategory;
+import appdoor.com.delivery.domain.models.FoodItem;
+import appdoor.com.delivery.domain.models.MenuItem;
 
 public interface Repository {
 
-    List<MenuCategory> getFoodMenu() throws Exception;
+    List<MenuItem> getMenu() throws Exception;
+    List<FoodItem> getFoods(int categoryId) throws Exception;
 }

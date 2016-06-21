@@ -6,8 +6,11 @@ import java.util.List;
 import javax.inject.Named;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
-import appdoor.com.delivery.domain.executors.GetMenuCategory;
-import appdoor.com.delivery.domain.models.MenuCategory;
+import appdoor.com.delivery.domain.Interactors.Interactor1;
+import appdoor.com.delivery.domain.executors.GetFoods;
+import appdoor.com.delivery.domain.executors.GetMenu;
+import appdoor.com.delivery.domain.models.FoodItem;
+import appdoor.com.delivery.domain.models.MenuItem;
 import appdoor.com.delivery.presentation.di.scopes.PerActivity;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
@@ -19,7 +22,8 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-    public static final String GET_MENU_CATEGORY = "getmenumategory";
+    public static final String GET_MENU_KEY = "getmenumategory";
+    public static final String GET_FOODS_KEY = "getfoods";
 
     private BaseActivity mActivity;
 
@@ -46,9 +50,16 @@ public class ActivityModule {
     }
 
     @Provides
-    @Named(GET_MENU_CATEGORY)
+    @Named(GET_MENU_KEY)
     @PerActivity
-    public Interactor<List<MenuCategory>> provideGetMenuCategory(GetMenuCategory getMenuCategory) {
-        return getMenuCategory;
+    public Interactor<List<MenuItem>> provideGetMenu(GetMenu getMenu) {
+        return getMenu;
+    }
+
+    @Provides
+    @Named(GET_FOODS_KEY)
+    @PerActivity
+    public Interactor1<List<FoodItem>, Integer> provideGetFoods(GetFoods getFoods) {
+        return getFoods;
     }
 }

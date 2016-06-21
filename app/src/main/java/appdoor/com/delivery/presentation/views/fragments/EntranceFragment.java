@@ -50,7 +50,8 @@ public class EntranceFragment extends BaseFragment {
                 .build();
 
         mBtnEnter.setOnClickListener(v -> {
-            mDialog.show();
+            if (!mEtTable.getText().toString().isEmpty())
+                mDialog.show();
         });
     }
 }

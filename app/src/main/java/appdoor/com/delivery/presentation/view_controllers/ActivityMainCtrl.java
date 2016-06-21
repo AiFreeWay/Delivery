@@ -48,7 +48,7 @@ public class ActivityMainCtrl {
 
     public void showFragments(AppMenuItem item) {
         BaseFragment fragment = mFragmentFactory.getFragment(item.getFragmentsType());
-        fragment.getArguments().putSerializable(BaseFragment.MENU_ITEM_KEY, item);
+        fragment.getArguments().putSerializable(BaseFragment.APP_MENU_ITEM_KEY, item);
         mRouter.show(fragment);
     }
 

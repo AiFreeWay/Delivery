@@ -42,9 +42,11 @@ public class MultyAdapter<T> extends BaseAdapter {
         return mBinder.bind(view, item);
     }
 
-    public void loadData(@Nullable  List<T> data) {
-        mData = data;
-        notifyDataSetChanged();
+    public void loadData(List<T> data) {
+        if (data != null) {
+            mData = data;
+            notifyDataSetChanged();
+        }
     }
 
     public List<T> getData() {

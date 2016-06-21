@@ -11,15 +11,25 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
-import appdoor.com.delivery.domain.executors.GetMenuCategory;
-import appdoor.com.delivery.domain.models.MenuCategory;
+import appdoor.com.delivery.domain.models.MenuItem;
+import appdoor.com.delivery.presentation.app.DeliveryApplication;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
+import appdoor.com.delivery.presentation.utils.FragmentRouter;
+import appdoor.com.delivery.presentation.utils.FragmentsFactory;
+import appdoor.com.delivery.presentation.views.fragments.BaseFragment;
+import appdoor.com.delivery.presentation.views.fragments.FoodsFragment;
 import appdoor.com.delivery.presentation.views.fragments.MenuFragment;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class FragmentMenuCtrl {
 
-    @Inject @Named(ActivityModule.GET_MENU_CATEGORY)
-    Interactor<List<MenuCategory>> mGetMenuCategory;
+    @Inject @Named(ActivityModule.GET_MENU_KEY)
+    Interactor<List<MenuItem>> mGetMenu;
+    @Inject
+    FragmentRouter mRouter;
+    @Inject
+    FragmentsFactory mFragmentFactory;
 
     private MenuFragment mFragment;
     private LayoutInflater mLayoutInflater;
@@ -31,8 +41,10 @@ public class FragmentMenuCtrl {
     }
 
     public void start() {
-        mGetMenuCategory.execute().subscribe(foodMenu ->
-            mFragment.getAdapter().loadData(foodMenu), e -> {});
+        mGetMenu.execute()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(menu -> mFragment.getAdapter().loadData(menu), e -> Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentMenuCtrl: start "+e.toString()));
     }
 
     public LayoutInflater getLayoutInflater() {
@@ -41,5 +53,11 @@ public class FragmentMenuCtrl {
 
     public MenuFragment getFragment() {
         return mFragment;
+    }
+
+    public void showFragment(MenuItem category) {
+        BaseFragment fragment = mFragmentFactory.getFragment(FragmentsFactory.Fragments.FOODS);
+        fragment.getArguments().putSerializable(FoodsFragment.MENU_ITEM_KEY, category);
+        mRouter.show(fragment);
     }
 }

@@ -1,7 +1,9 @@
 package appdoor.com.delivery.domain.models;
 
+import java.io.Serializable;
 
-public class MenuCategory {
+
+public class FoodItem implements Serializable {
 
     private int id;
     private String title;
@@ -9,10 +11,10 @@ public class MenuCategory {
     private String description;
     private String image;
 
-    public MenuCategory() {
+    public FoodItem() {
     }
 
-    public MenuCategory(int id, String title, String subTitle,  String description, String image) {
+    public FoodItem(int id, String title, String subTitle, String description, String image) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
@@ -60,3 +62,4 @@ public class MenuCategory {
         this.image = image;
     }
 }
+

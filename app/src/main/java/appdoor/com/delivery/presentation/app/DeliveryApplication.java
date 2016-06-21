@@ -9,6 +9,8 @@ import appdoor.com.delivery.presentation.di.modules.ApplicationModule;
 
 public class DeliveryApplication extends Application {
 
+    public static final String UNIVERSAL_APP_ERROR_TAG = "++++";
+
     private ApplicationComponent mComponent;
 
     @Override
