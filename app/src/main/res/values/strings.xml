@@ -7,4 +7,9 @@
     <string name="cancel">Я передумал</string>
     <string name="order_cancel"><u>Отмена</u></string>
     <string name="order_ok"><u>Заказать</u></string>
+    <string name="sorry">Извините</string>
+    <string name="table_busy">К сожалению стол занят</string>
+    <string name="enter">Войти</string>
+    <string name="exit">Выход</string>
+    <string name="realy_exit">Хотите выйти из-за стола?</string>
 </resources>

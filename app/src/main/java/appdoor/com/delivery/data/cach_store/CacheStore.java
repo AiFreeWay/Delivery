@@ -13,14 +13,4 @@ public class CacheStore {
     public CacheStore(Context context) {
         mPreferense = context.getSharedPreferences(PREFERENSE_NAME, Context.MODE_PRIVATE);
     }
-
-    public void putTableNumber(int number) throws Exception {
-        mPreferense.edit()
-                .putInt(TABLE_TAG, number)
-                .apply();
-    }
-
-    public int getTableNumber() throws Exception {
-        return mPreferense.getInt(TABLE_TAG, 0);
-    }
 }

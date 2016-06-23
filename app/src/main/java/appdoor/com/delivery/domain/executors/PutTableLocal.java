@@ -1,27 +1,27 @@
 package appdoor.com.delivery.domain.executors;
 
-
 import javax.inject.Inject;
 
-import appdoor.com.delivery.domain.Interactors.Interactor;
+import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.interfaces.Repository;
 import appdoor.com.delivery.domain.models.Table;
 import rx.Observable;
 
-public class GetTableLocal implements Interactor<Table> {
+
+public class PutTableLocal implements Interactor1<Void, Table> {
 
     private Repository mRepository;
 
     @Inject
-    public GetTableLocal(Repository repository) {
+    public PutTableLocal(Repository repository) {
         mRepository = repository;
     }
 
     @Override
-    public Observable<Table> execute() {
-        Observable.OnSubscribe<Table> subscriber = observer -> {
+    public Observable<Void> execute(Table data) {
+        Observable.OnSubscribe<Void> subscriber = observer -> {
             try {
-                observer.onNext(mRepository.getTableLocal());
+                mRepository.putTableLocal(data);
             } catch (Exception e) {
                 observer.onError(e);
             }

@@ -7,12 +7,13 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = OrderTable.TABLE_NAME)
 public class OrderTable {
 
+    public static final int SINGLE_ROW_TABLE_ID = 1;
     public final static String TABLE_NAME = "orderTable";
     public final static String FIELD_NAME_ID = "id";
     public final static String FIELD_NAME_NUMBER = "number";
     public final static String FIELD_NAME_STATUS = "status";
 
-    @DatabaseField(generatedId = true, canBeNull = true, dataType = DataType.INTEGER, columnName = FIELD_NAME_ID)
+    @DatabaseField(id = true, canBeNull = true, dataType = DataType.INTEGER, columnName = FIELD_NAME_ID)
     private int id;
 
     @DatabaseField(canBeNull = true, dataType = DataType.INTEGER, columnName = FIELD_NAME_NUMBER)
@@ -23,6 +24,16 @@ public class OrderTable {
 
     public OrderTable() {
 
+    }
+
+    public OrderTable(int number, int status) {
+        id = SINGLE_ROW_TABLE_ID;
+        this.number = number;
+        this.status = status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

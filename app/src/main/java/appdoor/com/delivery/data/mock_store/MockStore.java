@@ -29,7 +29,7 @@ public class MockStore {
     }
 
     public Table getTable(int number) throws Exception {
-        return new Table(number, Table.STATUS_WAIT);
+        return new Table(number, Table.STATUS_OK);
     }
 
     private void fillMenu() {

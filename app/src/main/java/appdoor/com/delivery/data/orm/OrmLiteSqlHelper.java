@@ -32,6 +32,7 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, OrderTable.class);
         } catch (SQLException e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "OrmLiteSqlHelper: onCreate "+e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -42,6 +43,7 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "OrmLiteSqlHelper: onUpgrade "+e.toString());
+            e.printStackTrace();
         }
     }
 

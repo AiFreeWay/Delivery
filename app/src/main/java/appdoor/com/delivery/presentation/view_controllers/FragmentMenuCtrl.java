@@ -44,7 +44,9 @@ public class FragmentMenuCtrl {
         mGetMenu.execute()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(menu -> mFragment.getAdapter().loadData(menu), e -> Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentMenuCtrl: start "+e.toString()));
+                .subscribe(menu -> mFragment.getAdapter().loadData(menu), e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentMenuCtrl: start "+e.toString());
+                    e.printStackTrace();
+                });
     }
 
     public LayoutInflater getLayoutInflater() {

@@ -24,13 +24,23 @@ public class DBStore {
             mOrderTableDAO = new OrderTableDAO(mDataBaseHelper.getConnectionSource(), OrderTable.class);
         } catch (Exception e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "DBStore: DBStore "+e.toString());
+            e.printStackTrace();
         }
     }
 
     public Table getTable() throws Exception {
-        List<OrderTable> tables = mOrderTableDAO.queryForAll();
-        if (tables.size() > 0)
-            return TableMapper.mapTable(tables.get(0));
+        OrderTable table = mOrderTableDAO.queryForId(OrderTable.SINGLE_ROW_TABLE_ID);
+        if (table != null)
+            return TableMapper.mapTable(table);
         return null;
+    }
+
+    public void putTable(Table table) throws Exception {
+        if (table == null)
+            mOrderTableDAO.deleteById(OrderTable.SINGLE_ROW_TABLE_ID);
+        else {
+            if (!mOrderTableDAO.idExists(OrderTable.SINGLE_ROW_TABLE_ID))
+                mOrderTableDAO.create(TableMapper.mapTable(table));
+        }
     }
 }

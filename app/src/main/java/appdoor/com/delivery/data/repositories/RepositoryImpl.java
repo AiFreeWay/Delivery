@@ -57,12 +57,17 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public int getTableLocal() throws Exception {
-        return mCacheStore.getTableNumber();
+    public Table getTableLocal() throws Exception {
+        return mDBStore.getTable();
     }
 
     @Override
     public void postTable(Integer number) throws Exception {
 
+    }
+
+    @Override
+    public void putTableLocal(Table table) throws Exception {
+        mDBStore.putTable(table);
     }
 }

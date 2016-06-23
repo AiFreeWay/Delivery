@@ -38,7 +38,9 @@ public class FragmentFoodsCtrl {
         mGetFoods.execute(mFragment.getMenuItem().getId())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(foods -> mFragment.getAdapter().loadData(foods), e -> Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: start "+e.toString()));
+                .subscribe(foods -> mFragment.getAdapter().loadData(foods), e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: start "+e.toString());
+                    e.printStackTrace();
+                });
     }
 
     public void toOrder(FoodItem data) {

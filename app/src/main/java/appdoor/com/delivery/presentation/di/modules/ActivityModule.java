@@ -12,6 +12,7 @@ import appdoor.com.delivery.domain.executors.GetMenu;
 import appdoor.com.delivery.domain.executors.GetTable;
 import appdoor.com.delivery.domain.executors.GetTableLocal;
 import appdoor.com.delivery.domain.executors.PostTable;
+import appdoor.com.delivery.domain.executors.PutTableLocal;
 import appdoor.com.delivery.domain.models.FoodItem;
 import appdoor.com.delivery.domain.models.MenuItem;
 import appdoor.com.delivery.domain.models.Table;
@@ -31,6 +32,7 @@ public class ActivityModule {
     public static final String GET_TABLE_KEY = "gettable";
     public static final String POST_TABLE_KEY = "posttablekey";
     public static final String GET_TABLE_LOCAL_KEY = "gettlocalk";
+    public static final String PUT_TABLE_LOCAL_KEY = "pttlocalk";
 
     private BaseActivity mActivity;
 
@@ -87,7 +89,14 @@ public class ActivityModule {
     @Provides
     @Named(GET_TABLE_LOCAL_KEY)
     @PerActivity
-    public Interactor<Integer> provideGetTableLocal(GetTableLocal getTableLocal) {
+    public Interactor<Table> provideGetTableLocal(GetTableLocal getTableLocal) {
         return getTableLocal;
+    }
+
+    @Provides
+    @Named(PUT_TABLE_LOCAL_KEY)
+    @PerActivity
+    public Interactor1<Void, Table> providePutTableLocal(PutTableLocal putTableLocal) {
+        return putTableLocal;
     }
 }

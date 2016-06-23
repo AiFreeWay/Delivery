@@ -37,6 +37,7 @@ public class EntranceFragment extends BaseFragment {
     private FragmentEntranceCtrl mViewController;
     private MaterialStyledDialog mDialog;
     private MaterialStyledDialog mErrorDialog;
+    private MaterialStyledDialog mExitDialog;
 
     private View.OnClickListener mEnterListener = v -> {
         if (!mEtTable.getText().toString().isEmpty() && getNumber()>0)
@@ -49,7 +50,7 @@ public class EntranceFragment extends BaseFragment {
     };
 
     private View.OnClickListener mExitListener = v -> {
-
+        mExitDialog.show();
     };
 
     @Override
@@ -77,14 +78,28 @@ public class EntranceFragment extends BaseFragment {
                 .build();
 
         mErrorDialog = new MaterialStyledDialog(getActivity())
-                .setTitle("Извините")
+                .setTitle(R.string.sorry)
                 .setHeaderColor(R.color.colorOrange)
                 .setStyle(Style.HEADER_WITH_TITLE)
-                .setDescription("К сожалению стол занят")
+                .setDescription(R.string.table_busy)
                 .setNeutral(getString(R.string.ok), null)
                 .build();
 
+        mExitDialog = new MaterialStyledDialog(getActivity())
+                .setTitle(R.string.exit)
+                .setHeaderColor(R.color.colorOrange)
+                .setStyle(Style.HEADER_WITH_TITLE)
+                .setDescription(R.string.realy_exit)
+                .setPositive(getString(R.string.ok), (dialog, which) -> mViewController.exit())
+                .setNegative(getString(R.string.order_cancel), null)
+                .build();
+
         mBtnEnter.setOnClickListener(mEnterListener);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         mViewController.start();
     }
 
@@ -101,7 +116,7 @@ public class EntranceFragment extends BaseFragment {
         mTvBusy.setVisibility(View.INVISIBLE);
         unlockEditText();
 
-        mBtnEnter.setText("Войти");
+        mBtnEnter.setText(R.string.enter);
         mBtnEnter.setBackground(getResources().getDrawable(R.drawable.login_button));
         mBtnEnter.setOnClickListener(mEnterListener);
     }
@@ -111,7 +126,7 @@ public class EntranceFragment extends BaseFragment {
         mTvBusy.setVisibility(View.INVISIBLE);
         lockEditText();
 
-        mBtnEnter.setText("Выход");
+        mBtnEnter.setText(R.string.exit);
         mBtnEnter.setBackground(getResources().getDrawable(R.drawable.login_button_cancel));
         mBtnEnter.setOnClickListener(mExitListener);
     }
@@ -121,7 +136,7 @@ public class EntranceFragment extends BaseFragment {
         mTvBusy.setVisibility(View.VISIBLE);
         lockEditText();
 
-        mBtnEnter.setText("Отмена");
+        mBtnEnter.setText(R.string.order_cancel);
         mBtnEnter.setBackground(getResources().getDrawable(R.drawable.login_button_cancel));
         mBtnEnter.setOnClickListener(mCancelListener);
     }

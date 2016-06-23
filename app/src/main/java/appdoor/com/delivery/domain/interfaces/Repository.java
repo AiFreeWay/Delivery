@@ -12,6 +12,7 @@ public interface Repository {
     List<MenuItem> getMenu() throws Exception;
     List<FoodItem> getFoods(int categoryId) throws Exception;
     Table getTable(int orderTable) throws Exception;
-    int getTableLocal() throws Exception;
+    Table getTableLocal() throws Exception;
     void postTable(Integer number) throws Exception;
+    void putTableLocal(Table table) throws Exception;
 }
