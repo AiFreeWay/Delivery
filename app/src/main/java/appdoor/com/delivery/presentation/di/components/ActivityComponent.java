@@ -7,6 +7,7 @@ import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
+import appdoor.com.delivery.presentation.view_controllers.FragmentEntranceCtrl;
 import appdoor.com.delivery.presentation.view_controllers.FragmentFoodsCtrl;
 import appdoor.com.delivery.presentation.view_controllers.FragmentMenuCtrl;
 import dagger.Component;
@@ -18,6 +19,7 @@ public interface ActivityComponent {
     void inject(ActivityMainCtrl controller);
     void inject(FragmentMenuCtrl controller);
     void inject(FragmentFoodsCtrl controller);
+    void inject(FragmentEntranceCtrl controller);
 
     FragmentRouter provideFragmentRouter();
     FragmentsFactory provideFragmentsFactory();

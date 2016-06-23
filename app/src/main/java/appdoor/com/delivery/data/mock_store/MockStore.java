@@ -6,6 +6,7 @@ import java.util.List;
 
 import appdoor.com.delivery.domain.models.FoodItem;
 import appdoor.com.delivery.domain.models.MenuItem;
+import appdoor.com.delivery.domain.models.Table;
 
 public class MockStore {
 
@@ -25,6 +26,10 @@ public class MockStore {
 
     public List<FoodItem> getFoods() throws Exception {
         return mFoods;
+    }
+
+    public Table getTable(int number) throws Exception {
+        return new Table(number, Table.STATUS_WAIT);
     }
 
     private void fillMenu() {

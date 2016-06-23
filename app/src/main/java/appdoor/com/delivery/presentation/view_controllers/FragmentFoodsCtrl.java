@@ -22,8 +22,7 @@ import rx.schedulers.Schedulers;
 
 public class FragmentFoodsCtrl {
 
-    @Inject
-    @Named(ActivityModule.GET_FOODS_KEY)
+    @Inject @Named(ActivityModule.GET_FOODS_KEY)
     Interactor1<List<FoodItem>, Integer> mGetFoods;
 
     private FoodsFragment mFragment;

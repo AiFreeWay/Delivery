@@ -1,5 +1,6 @@
 package appdoor.com.delivery.presentation.adapters.view_binders;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,9 +64,6 @@ public class FoodsBinder implements AbstractBinder<FoodItem> {
         mTvTitle.setText(data.getTitle());
         mTvSubTitle.setText(data.getSubTitle()+" р.");
         mTvDescription.setText(data.getDescription());
-        view.setOnClickListener(v -> mViewController.toOrder(data));
         return view;
     }
-
-
 }
