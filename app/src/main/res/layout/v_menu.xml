@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingRight="10dp"
     android:background="#fff">
 
     <ImageView
@@ -21,7 +22,7 @@
         android:layout_toEndOf="@+id/v_menu_im_image"
         android:layout_toRightOf="@+id/v_menu_im_image"
         android:layout_marginTop="15dp"
-        android:textSize="19sp"
+        android:textSize="21sp"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/deepGrey"/>
 
@@ -33,8 +34,9 @@
         android:layout_toEndOf="@+id/v_menu_im_image"
         android:layout_toRightOf="@+id/v_menu_im_image"
         android:fontFamily="sans-serif-medium"
+        android:translationY="-5dp"
         android:layout_marginLeft="3dp"
-        android:textColor="@color/colorOrange"/>
+        android:textColor="@color/deepGrey"/>
 
     <TextView
         android:id="@+id/v_menu_tv_description"
