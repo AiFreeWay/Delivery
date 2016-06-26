@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 public class MenuBinder implements AbstractBinder<MenuItem> {
 
     private final RoundCornersTransformPicasso CIRCLE_CORNERS;
+    private final String IN_MENU = "В меню: ";
 
     @BindView(R.id.v_menu_im_image)
     ImageView mIvImage;
@@ -55,7 +56,7 @@ public class MenuBinder implements AbstractBinder<MenuItem> {
                 .into(mIvImage);
 
         mTvTitle.setText(data.getTitle());
-        mTvSubTitle.setText(data.getSubTitle());
+        mTvSubTitle.setText(IN_MENU+data.getSubTitle());
         mTvDescription.setText(data.getDescription());
 
         view.setOnClickListener(v -> mViewController.showFragment(data));
