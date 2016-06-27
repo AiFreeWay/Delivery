@@ -1,12 +1,13 @@
 package appdoor.com.delivery.domain.executors;
 
 
-import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
 import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.interfaces.Repository;
+import appdoor.com.delivery.domain.models.TableDomain;
 import rx.Observable;
 
 public class PostTable implements Interactor1<Void, Integer> {
@@ -22,7 +23,10 @@ public class PostTable implements Interactor1<Void, Integer> {
     public Observable<Void> execute(Integer data) {
         Observable.OnSubscribe<Void> subscriber = observer -> {
             try {
-                mRepository.postTable(data);
+                TableDomain table = new TableDomain();
+                table.setNumber(data);
+                table.setUuid(UUID.randomUUID().toString());
+                mRepository.postTable(table);
             } catch (Exception e) {
                 observer.onError(e);
             }

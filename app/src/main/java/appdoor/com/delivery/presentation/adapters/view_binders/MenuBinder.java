@@ -10,13 +10,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import appdoor.com.delivery.R;
-import appdoor.com.delivery.domain.models.MenuItem;
+import appdoor.com.delivery.domain.models.MenuItemDomain;
 import appdoor.com.delivery.presentation.utils.RoundCornersTransformPicasso;
 import appdoor.com.delivery.presentation.view_controllers.FragmentMenuCtrl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MenuBinder implements AbstractBinder<MenuItem> {
+public class MenuBinder implements AbstractBinder<MenuItemDomain> {
 
     private final RoundCornersTransformPicasso CIRCLE_CORNERS;
     private final String IN_MENU = "В меню: ";
@@ -43,7 +43,7 @@ public class MenuBinder implements AbstractBinder<MenuItem> {
     }
 
     @Override
-    public View bind(View view, MenuItem data) {
+    public View bind(View view, MenuItemDomain data) {
         if (view == null)
             view = mLayoutInflater.inflate(R.layout.v_menu, mParent, false);
         ButterKnife.bind(this, view);

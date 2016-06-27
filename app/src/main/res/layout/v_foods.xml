@@ -64,6 +64,7 @@
         android:textColor="@color/colorOrange"
         android:layout_marginRight="10dp"
         android:text="10"
+        android:translationY="-2dp"
         android:textSize="12sp"
         android:layout_alignTop="@+id/v_foods_tv_title"
         android:layout_alignParentRight="true"

@@ -1,17 +1,14 @@
 package appdoor.com.delivery.domain.executors;
 
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import appdoor.com.delivery.domain.Interactors.Interactor;
 import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.interfaces.Repository;
-import appdoor.com.delivery.domain.models.Table;
+import appdoor.com.delivery.domain.models.TableDomain;
 import rx.Observable;
 
-public class GetTable implements Interactor1<Table, Integer> {
+public class GetTable implements Interactor1<TableDomain, Integer> {
 
     private Repository mRepository;
 
@@ -21,8 +18,8 @@ public class GetTable implements Interactor1<Table, Integer> {
     }
 
     @Override
-    public Observable<Table> execute(Integer data) {
-        Observable.OnSubscribe<Table> subscriber = observer -> {
+    public Observable<TableDomain> execute(Integer data) {
+        Observable.OnSubscribe<TableDomain> subscriber = observer -> {
             try {
                 observer.onNext(mRepository.getTable(data));
             } catch (Exception e) {

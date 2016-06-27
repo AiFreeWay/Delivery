@@ -1,7 +1,7 @@
 package appdoor.com.delivery.domain.models;
 
 
-public class Table {
+public class TableDomain {
 
     public static final int STATUS_OK = 0;
     public static final int STATUS_WAIT = 1;
@@ -10,13 +10,15 @@ public class Table {
 
     private int number;
     private int status;
+    private String uuid;
 
-    public Table() {
+    public TableDomain() {
     }
 
-    public Table(int number, int status) {
+    public TableDomain(int number, int status, String uuid) {
         this.number = number;
         this.status = status;
+        this.uuid = uuid;
     }
 
     public int getNumber() {
@@ -33,5 +35,13 @@ public class Table {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

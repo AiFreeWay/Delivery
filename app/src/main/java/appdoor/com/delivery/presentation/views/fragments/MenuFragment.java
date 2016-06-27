@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import appdoor.com.delivery.R;
-import appdoor.com.delivery.domain.models.MenuItem;
+import appdoor.com.delivery.domain.models.MenuItemDomain;
 import appdoor.com.delivery.presentation.adapters.MultyAdapter;
 import appdoor.com.delivery.presentation.adapters.view_binders.MenuBinder;
 import appdoor.com.delivery.presentation.view_controllers.FragmentMenuCtrl;
@@ -22,7 +22,7 @@ public class MenuFragment extends BaseFragment {
     ListView mLvMain;
 
     private FragmentMenuCtrl mViewController;
-    private MultyAdapter<MenuItem> mAdapter;
+    private MultyAdapter<MenuItemDomain> mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MenuFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewController = new FragmentMenuCtrl(this);
-        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController));
+        mAdapter = new MultyAdapter<MenuItemDomain>(new MenuBinder(mViewController));
         mLvMain.setAdapter(mAdapter);
         mViewController.start();
     }
@@ -44,7 +44,7 @@ public class MenuFragment extends BaseFragment {
         return mLvMain;
     }
 
-    public MultyAdapter<MenuItem> getAdapter() {
+    public MultyAdapter<MenuItemDomain> getAdapter() {
         return mAdapter;
     }
 }

@@ -7,15 +7,16 @@ import javax.inject.Named;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
 import appdoor.com.delivery.domain.Interactors.Interactor1;
+import appdoor.com.delivery.domain.executors.AddOrderToCart;
 import appdoor.com.delivery.domain.executors.GetFoods;
 import appdoor.com.delivery.domain.executors.GetMenu;
 import appdoor.com.delivery.domain.executors.GetTable;
 import appdoor.com.delivery.domain.executors.GetTableLocal;
 import appdoor.com.delivery.domain.executors.PostTable;
 import appdoor.com.delivery.domain.executors.PutTableLocal;
-import appdoor.com.delivery.domain.models.FoodItem;
-import appdoor.com.delivery.domain.models.MenuItem;
-import appdoor.com.delivery.domain.models.Table;
+import appdoor.com.delivery.domain.models.FoodItemDomain;
+import appdoor.com.delivery.domain.models.MenuItemDomain;
+import appdoor.com.delivery.domain.models.TableDomain;
 import appdoor.com.delivery.presentation.di.scopes.PerActivity;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
@@ -33,6 +34,7 @@ public class ActivityModule {
     public static final String POST_TABLE_KEY = "posttablekey";
     public static final String GET_TABLE_LOCAL_KEY = "gettlocalk";
     public static final String PUT_TABLE_LOCAL_KEY = "pttlocalk";
+    public static final String ADD_ORDER_TO_CART = "aaadordrtocrt";
 
     private BaseActivity mActivity;
 
@@ -61,21 +63,21 @@ public class ActivityModule {
     @Provides
     @Named(GET_MENU_KEY)
     @PerActivity
-    public Interactor<List<MenuItem>> provideGetMenu(GetMenu getMenu) {
+    public Interactor<List<MenuItemDomain>> provideGetMenu(GetMenu getMenu) {
         return getMenu;
     }
 
     @Provides
     @Named(GET_FOODS_KEY)
     @PerActivity
-    public Interactor1<List<FoodItem>, Integer> provideGetFoods(GetFoods getFoods) {
+    public Interactor1<List<FoodItemDomain>, Integer> provideGetFoods(GetFoods getFoods) {
         return getFoods;
     }
 
     @Provides
     @Named(GET_TABLE_KEY)
     @PerActivity
-    public Interactor1<Table, Integer> provideGetTable(GetTable getTable) {
+    public Interactor1<TableDomain, Integer> provideGetTable(GetTable getTable) {
         return getTable;
     }
 
@@ -89,14 +91,21 @@ public class ActivityModule {
     @Provides
     @Named(GET_TABLE_LOCAL_KEY)
     @PerActivity
-    public Interactor<Table> provideGetTableLocal(GetTableLocal getTableLocal) {
+    public Interactor<TableDomain> provideGetTableLocal(GetTableLocal getTableLocal) {
         return getTableLocal;
     }
 
     @Provides
     @Named(PUT_TABLE_LOCAL_KEY)
     @PerActivity
-    public Interactor1<Void, Table> providePutTableLocal(PutTableLocal putTableLocal) {
+    public Interactor1<Void, TableDomain> providePutTableLocal(PutTableLocal putTableLocal) {
         return putTableLocal;
+    }
+
+    @Provides
+    @Named(ADD_ORDER_TO_CART)
+    @PerActivity
+    public Interactor1<Void, FoodItemDomain> provideAddOrder(AddOrderToCart addOrderToCart) {
+        return addOrderToCart;
     }
 }

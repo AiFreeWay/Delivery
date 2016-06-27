@@ -5,10 +5,10 @@ import javax.inject.Inject;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
 import appdoor.com.delivery.domain.interfaces.Repository;
-import appdoor.com.delivery.domain.models.Table;
+import appdoor.com.delivery.domain.models.TableDomain;
 import rx.Observable;
 
-public class GetTableLocal implements Interactor<Table> {
+public class GetTableLocal implements Interactor<TableDomain> {
 
     private Repository mRepository;
 
@@ -18,8 +18,8 @@ public class GetTableLocal implements Interactor<Table> {
     }
 
     @Override
-    public Observable<Table> execute() {
-        Observable.OnSubscribe<Table> subscriber = observer -> {
+    public Observable<TableDomain> execute() {
+        Observable.OnSubscribe<TableDomain> subscriber = observer -> {
             try {
                 observer.onNext(mRepository.getTableLocal());
             } catch (Exception e) {

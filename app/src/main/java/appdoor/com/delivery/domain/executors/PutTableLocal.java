@@ -4,11 +4,11 @@ import javax.inject.Inject;
 
 import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.interfaces.Repository;
-import appdoor.com.delivery.domain.models.Table;
+import appdoor.com.delivery.domain.models.TableDomain;
 import rx.Observable;
 
 
-public class PutTableLocal implements Interactor1<Void, Table> {
+public class PutTableLocal implements Interactor1<Void, TableDomain> {
 
     private Repository mRepository;
 
@@ -18,7 +18,7 @@ public class PutTableLocal implements Interactor1<Void, Table> {
     }
 
     @Override
-    public Observable<Void> execute(Table data) {
+    public Observable<Void> execute(TableDomain data) {
         Observable.OnSubscribe<Void> subscriber = observer -> {
             try {
                 mRepository.putTableLocal(data);

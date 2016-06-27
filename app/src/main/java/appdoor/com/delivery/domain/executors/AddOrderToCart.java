@@ -1,31 +1,31 @@
 package appdoor.com.delivery.domain.executors;
 
-import java.util.List;
 
 import javax.inject.Inject;
 
 import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.interfaces.Repository;
 import appdoor.com.delivery.domain.models.FoodItemDomain;
+import appdoor.com.delivery.domain.models.OrderedFoodDomain;
 import rx.Observable;
 
-
-public class GetFoods implements Interactor1<List<FoodItemDomain>, Integer> {
+public class AddOrderToCart implements Interactor1<Void, FoodItemDomain> {
 
     private Repository mRepository;
 
     @Inject
-    public GetFoods(Repository repository) {
+    public AddOrderToCart(Repository repository) {
         mRepository = repository;
     }
 
     @Override
-    public Observable<List<FoodItemDomain>> execute(Integer data) {
-        Observable.OnSubscribe<List<FoodItemDomain>> subscriber = observer -> {
+    public Observable<Void> execute(FoodItemDomain data) {
+        Observable.OnSubscribe<Void> subscriber = observer -> {
             try {
-                List<FoodItemDomain> foods = mRepository.getFoods(data);
-                mRepository.cacheFoods(foods);
-                observer.onNext(foods);
+                OrderedFoodDomain orderedFood = new OrderedFoodDomain();
+                orderedFood.setFood(data);
+                orderedFood.setStatus(OrderedFoodDomain.STATUS_WAIT);
+                mRepository.addOrderedtoCart(orderedFood);
             } catch (Exception e) {
                 observer.onError(e);
             }

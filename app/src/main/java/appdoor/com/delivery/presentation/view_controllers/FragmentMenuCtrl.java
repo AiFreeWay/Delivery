@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
-import appdoor.com.delivery.domain.models.MenuItem;
+import appdoor.com.delivery.domain.models.MenuItemDomain;
 import appdoor.com.delivery.presentation.app.DeliveryApplication;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
 import appdoor.com.delivery.presentation.utils.FragmentRouter;
@@ -25,7 +25,7 @@ import rx.schedulers.Schedulers;
 public class FragmentMenuCtrl {
 
     @Inject @Named(ActivityModule.GET_MENU_KEY)
-    Interactor<List<MenuItem>> mGetMenu;
+    Interactor<List<MenuItemDomain>> mGetMenu;
     @Inject
     FragmentRouter mRouter;
     @Inject
@@ -57,7 +57,7 @@ public class FragmentMenuCtrl {
         return mFragment;
     }
 
-    public void showFragment(MenuItem category) {
+    public void showFragment(MenuItemDomain category) {
         BaseFragment fragment = mFragmentFactory.getFragment(FragmentsFactory.Fragments.FOODS);
         fragment.getArguments().putSerializable(BaseFragment.APP_MENU_ITEM_KEY, mFragment.getAppMenuItem());
         fragment.getArguments().putSerializable(FoodsFragment.MENU_ITEM_KEY, category);

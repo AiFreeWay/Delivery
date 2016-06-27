@@ -1,30 +1,22 @@
 package appdoor.com.delivery.presentation.adapters.view_binders;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.github.florent37.viewanimator.ViewAnimator;
 import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.TimeUnit;
-
 import appdoor.com.delivery.R;
-import appdoor.com.delivery.domain.models.FoodItem;
+import appdoor.com.delivery.domain.models.FoodItemDomain;
 import appdoor.com.delivery.presentation.utils.RoundCornersTransformPicasso;
 import appdoor.com.delivery.presentation.view_controllers.FragmentFoodsCtrl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FoodsBinder implements AbstractBinder<FoodItem> {
+public class FoodsBinder implements AbstractBinder<FoodItemDomain> {
 
     private final RoundCornersTransformPicasso CIRCLE_CORNERS;
 
@@ -49,7 +41,7 @@ public class FoodsBinder implements AbstractBinder<FoodItem> {
     }
 
     @Override
-    public View bind(View view, FoodItem data) {
+    public View bind(View view, FoodItemDomain data) {
         if (view == null)
             view = mLayoutInflater.inflate(R.layout.v_foods, mParent, false);
         ButterKnife.bind(this, view);
@@ -64,6 +56,7 @@ public class FoodsBinder implements AbstractBinder<FoodItem> {
         mTvTitle.setText(data.getTitle());
         mTvSubTitle.setText(data.getSubTitle()+" р.");
         mTvDescription.setText(data.getDescription());
+        view.setOnClickListener(v -> mViewController.toOrder(data));
         return view;
     }
 }

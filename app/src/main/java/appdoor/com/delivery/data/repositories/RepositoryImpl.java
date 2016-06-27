@@ -1,24 +1,22 @@
 package appdoor.com.delivery.data.repositories;
 
 import android.content.Context;
-import android.util.Log;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import appdoor.com.delivery.data.cach_store.CacheStore;
-import appdoor.com.delivery.data.cach_store.DBStore;
+import appdoor.com.delivery.data.cache_store.CacheStore;
+import appdoor.com.delivery.data.cache_store.DBStore;
 import appdoor.com.delivery.data.fast_store.FastStore;
 import appdoor.com.delivery.data.mock_store.MockStore;
 import appdoor.com.delivery.data.orm.OrmLiteSqlHelper;
 import appdoor.com.delivery.domain.interfaces.Repository;
-import appdoor.com.delivery.domain.models.FoodItem;
-import appdoor.com.delivery.domain.models.MenuItem;
-import appdoor.com.delivery.domain.models.Table;
+import appdoor.com.delivery.domain.models.FoodItemDomain;
+import appdoor.com.delivery.domain.models.MenuItemDomain;
+import appdoor.com.delivery.domain.models.OrderedFoodDomain;
+import appdoor.com.delivery.domain.models.TableDomain;
 
 @Singleton
 public class RepositoryImpl implements Repository {
@@ -37,37 +35,53 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<MenuItem> getMenu() throws Exception {
-        List<MenuItem> foodMenu = mFastStore.getMenu();
-        if (foodMenu == null) {
-            foodMenu = mMockStore.getMenu();
-            mFastStore.setMenu(foodMenu);
-        }
-        return foodMenu;
+    public List<MenuItemDomain> getMenu() throws Exception {
+        List<MenuItemDomain> menu = mMockStore.getMenu();
+        if (menu == null)
+            menu = mDBStore.getMenu();
+        return menu;
     }
 
     @Override
-    public List<FoodItem> getFoods(int categoryId) throws Exception {
-        return mMockStore.getFoods();
+    public List<FoodItemDomain> getFoods(int categoryId) throws Exception {
+        List<FoodItemDomain> foods = mMockStore.getFoods();
+        if (foods == null)
+            foods = mDBStore.getFoods(categoryId);
+        return foods;
     }
 
     @Override
-    public Table getTable(int number) throws Exception {
+    public TableDomain getTable(int number) throws Exception {
         return mMockStore.getTable(number);
     }
 
     @Override
-    public Table getTableLocal() throws Exception {
+    public TableDomain getTableLocal() throws Exception {
         return mDBStore.getTable();
     }
 
     @Override
-    public void postTable(Integer number) throws Exception {
+    public void postTable(TableDomain tableDomain) throws Exception {
 
     }
 
     @Override
-    public void putTableLocal(Table table) throws Exception {
+    public void putTableLocal(TableDomain table) throws Exception {
         mDBStore.putTable(table);
+    }
+
+    @Override
+    public void addOrderedtoCart(OrderedFoodDomain food) throws Exception {
+        mDBStore.addOrderToCart(food);
+    }
+
+    @Override
+    public void cacheMenu(List<MenuItemDomain> menu) throws Exception {
+        mDBStore.cacheMenu(menu);
+    }
+
+    @Override
+    public void cacheFoods(List<FoodItemDomain> foods) throws Exception {
+        mDBStore.cacheFoods(foods);
     }
 }
