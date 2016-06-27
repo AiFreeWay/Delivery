@@ -11,8 +11,14 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+import appdoor.com.delivery.data.orm.dao.FoodItemDAO;
+import appdoor.com.delivery.data.orm.dao.MenuItemDAO;
 import appdoor.com.delivery.data.orm.dao.OrderTableDAO;
+import appdoor.com.delivery.data.orm.dao.OrderedFoodDAO;
+import appdoor.com.delivery.data.orm.tables.FoodItem;
+import appdoor.com.delivery.data.orm.tables.MenuItem;
 import appdoor.com.delivery.data.orm.tables.OrderTable;
+import appdoor.com.delivery.data.orm.tables.OrderedFood;
 import appdoor.com.delivery.presentation.app.DeliveryApplication;
 
 public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
@@ -20,7 +26,10 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME ="myappname.db";
     private static final int VERSION = 1;
 
-    private OrderTableDAO mOrderTableDao = null;
+    private OrderTableDAO mOrderTableDAO = null;
+    private FoodItemDAO mFoodItemDAO = null;
+    private MenuItemDAO mMenuItemDAO = null;
+    private OrderedFoodDAO mOrderedFoodDAO= null;
 
     public OrmLiteSqlHelper(Context context) {
         super(context,DATABASE_NAME, null, VERSION);
@@ -30,6 +39,9 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, OrderTable.class);
+            TableUtils.createTable(connectionSource, FoodItem.class);
+            TableUtils.createTable(connectionSource, MenuItem.class);
+            TableUtils.createTable(connectionSource, OrderedFood.class);
         } catch (SQLException e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "OrmLiteSqlHelper: onCreate "+e.toString());
             e.printStackTrace();
@@ -40,6 +52,9 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVer, int newVer) {
         try {
             TableUtils.dropTable(connectionSource, OrderTable.class, true);
+            TableUtils.dropTable(connectionSource, FoodItem.class, true);
+            TableUtils.dropTable(connectionSource, MenuItem.class, true);
+            TableUtils.dropTable(connectionSource, OrderedFood.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "OrmLiteSqlHelper: onUpgrade "+e.toString());
@@ -48,14 +63,35 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public OrderTableDAO getOrderTableDAO() throws SQLException{
-        if(mOrderTableDao == null)
-            mOrderTableDao = new OrderTableDAO(getConnectionSource(), OrderTable.class);
-        return mOrderTableDao;
+        if(mOrderTableDAO == null)
+            mOrderTableDAO = new OrderTableDAO(getConnectionSource(), OrderTable.class);
+        return mOrderTableDAO;
+    }
+
+    public FoodItemDAO getFoodItemDAO() throws SQLException{
+        if(mFoodItemDAO == null)
+            mFoodItemDAO = new FoodItemDAO(getConnectionSource(), FoodItem.class);
+        return mFoodItemDAO;
+    }
+
+    public MenuItemDAO getMenuItemDAO() throws SQLException{
+        if(mMenuItemDAO == null)
+            mMenuItemDAO = new MenuItemDAO(getConnectionSource(), MenuItem.class);
+        return mMenuItemDAO;
+    }
+
+    public OrderedFoodDAO getOrderedFoodDAO() throws SQLException{
+        if(mOrderedFoodDAO == null)
+            mOrderedFoodDAO = new OrderedFoodDAO(getConnectionSource(), OrderedFood.class);
+        return mOrderedFoodDAO;
     }
 
     @Override
     public void close(){
         super.close();
-        mOrderTableDao = null;
+        mOrderTableDAO = null;
+        mFoodItemDAO = null;
+        mMenuItemDAO = null;
+        mOrderedFoodDAO = null;
     }
 }

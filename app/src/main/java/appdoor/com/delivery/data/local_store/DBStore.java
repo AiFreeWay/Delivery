@@ -1,4 +1,4 @@
-package appdoor.com.delivery.data.cache_store;
+package appdoor.com.delivery.data.local_store;
 
 
 import android.util.Log;
@@ -19,7 +19,6 @@ import appdoor.com.delivery.data.orm.dao.OrderedFoodDAO;
 import appdoor.com.delivery.data.orm.tables.FoodItem;
 import appdoor.com.delivery.data.orm.tables.MenuItem;
 import appdoor.com.delivery.data.orm.tables.OrderTable;
-import appdoor.com.delivery.data.orm.tables.OrderedFood;
 import appdoor.com.delivery.domain.models.FoodItemDomain;
 import appdoor.com.delivery.domain.models.MenuItemDomain;
 import appdoor.com.delivery.domain.models.OrderedFoodDomain;
@@ -37,10 +36,10 @@ public class DBStore {
     public DBStore(OrmLiteSqlHelper dataBaseHelper) {
         mDataBaseHelper = dataBaseHelper;
         try {
-            mOrderTableDAO = new OrderTableDAO(mDataBaseHelper.getConnectionSource(), OrderTable.class);
-            mMenuItemDAO = new MenuItemDAO(mDataBaseHelper.getConnectionSource(), MenuItem.class);
-            mFoodItemDAO = new FoodItemDAO(mDataBaseHelper.getConnectionSource(), FoodItem.class);
-            mOrderedFoodDAO = new OrderedFoodDAO(mDataBaseHelper.getConnectionSource(), OrderedFood.class);
+            mOrderTableDAO = mDataBaseHelper.getOrderTableDAO();
+            mMenuItemDAO = mDataBaseHelper.getMenuItemDAO();
+            mFoodItemDAO = mDataBaseHelper.getFoodItemDAO();
+            mOrderedFoodDAO = mDataBaseHelper.getOrderedFoodDAO();
         } catch (Exception e) {
             Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "DBStore: DBStore "+e.toString());
             e.printStackTrace();

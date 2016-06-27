@@ -11,17 +11,19 @@ public class FoodItemDomain implements Serializable {
     private String description;
     private String image;
     private int categoryId;
+    private int likes;
 
     public FoodItemDomain() {
     }
 
-    public FoodItemDomain(int id, String title, String subTitle, String description, String image, int categoryId) {
+    public FoodItemDomain(int id, String title, String subTitle, String description, String image, int categoryId, int likes) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.description = description;
         this.image = image;
         this.categoryId = categoryId;
+        this.likes = likes;
     }
 
     public int getId() {
@@ -70,6 +72,14 @@ public class FoodItemDomain implements Serializable {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
 

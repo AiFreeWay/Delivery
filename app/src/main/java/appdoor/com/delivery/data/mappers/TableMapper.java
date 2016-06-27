@@ -7,10 +7,10 @@ import appdoor.com.delivery.domain.models.TableDomain;
 public class TableMapper {
 
     public static TableDomain mapTable(OrderTable table) {
-        return new TableDomain(table.getNumber(), table.getStatus());
+        return new TableDomain(table.getNumber(), table.getStatus(), table.getUuid());
     }
 
     public static OrderTable mapTable(TableDomain table) {
-        return new OrderTable(table.getNumber(), table.getStatus());
+        return new OrderTable(table.getNumber(), table.getStatus(), table.getUuid());
     }
 }

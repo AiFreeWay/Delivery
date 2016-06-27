@@ -14,8 +14,9 @@ public class FoodItem {
     public final static String FIELD_NAME_DESCRIPTION = "description";
     public final static String FIELD_NAME_IMAGE = "image";
     public final static String FIELD_NAME_CATEGORY_ID = "categoty_id";
+    public final static String FIELD_NAME_LIKES = "likes";
 
-    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = FIELD_NAME_ID)
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = FIELD_NAME_ID)
     private int id;
     @DatabaseField(canBeNull = true, dataType = DataType.STRING, columnName = FIELD_NAME_TITLE)
     private String title;
@@ -27,17 +28,20 @@ public class FoodItem {
     private String image;
     @DatabaseField(canBeNull = false, dataType = DataType.INTEGER, columnName = FIELD_NAME_CATEGORY_ID)
     private int categoryId;
+    @DatabaseField(canBeNull = true, dataType = DataType.INTEGER, columnName = FIELD_NAME_LIKES)
+    private int likes;
 
     public FoodItem() {
     }
 
-    public FoodItem(int id, String title, String subTitle, String description, String image, int categoryId) {
+    public FoodItem(int id, String title, String subTitle, String description, String image, int categoryId, int likes) {
         this.id = id;
         this.title = title;
         this.subTitle = subTitle;
         this.description = description;
         this.image = image;
         this.categoryId = categoryId;
+        this.likes = likes;
     }
 
     public int getId() {
@@ -86,5 +90,13 @@ public class FoodItem {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

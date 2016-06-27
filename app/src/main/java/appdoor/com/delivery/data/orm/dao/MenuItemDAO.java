@@ -6,7 +6,6 @@ import com.j256.ormlite.support.ConnectionSource;
 
 import java.sql.SQLException;
 
-import appdoor.com.delivery.data.orm.tables.FoodItem;
 import appdoor.com.delivery.data.orm.tables.MenuItem;
 
 public class MenuItemDAO extends BaseDaoImpl<MenuItem, Integer> {

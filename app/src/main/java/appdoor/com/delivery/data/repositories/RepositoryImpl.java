@@ -7,8 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import appdoor.com.delivery.data.cache_store.CacheStore;
-import appdoor.com.delivery.data.cache_store.DBStore;
+import appdoor.com.delivery.data.local_store.CacheStore;
+import appdoor.com.delivery.data.local_store.DBStore;
 import appdoor.com.delivery.data.fast_store.FastStore;
 import appdoor.com.delivery.data.mock_store.MockStore;
 import appdoor.com.delivery.data.orm.OrmLiteSqlHelper;

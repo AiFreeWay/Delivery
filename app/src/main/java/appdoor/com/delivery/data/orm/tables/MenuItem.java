@@ -8,14 +8,14 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = MenuItem.TABLE_NAME)
 public class MenuItem {
 
-    public final static String TABLE_NAME = "foodItem";
+    public final static String TABLE_NAME = "menuItem";
     public final static String FIELD_NAME_ID = "id";
     public final static String FIELD_NAME_TITLE = "title";
     public final static String FIELD_NAME_SUBTITLE = "subTitle";
     public final static String FIELD_NAME_DESCRIPTION = "description";
     public final static String FIELD_NAME_IMAGE = "image";
 
-    @DatabaseField(id = true, canBeNull = false, dataType = DataType.STRING, columnName = FIELD_NAME_ID)
+    @DatabaseField(id = true, canBeNull = false, dataType = DataType.INTEGER, columnName = FIELD_NAME_ID)
     private int id;
     @DatabaseField(canBeNull = true, dataType = DataType.STRING, columnName = FIELD_NAME_TITLE)
     private String title;

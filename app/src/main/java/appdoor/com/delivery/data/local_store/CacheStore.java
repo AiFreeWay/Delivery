@@ -1,4 +1,4 @@
-package appdoor.com.delivery.data.cache_store;
+package appdoor.com.delivery.data.local_store;
 
 
 import android.content.Context;
