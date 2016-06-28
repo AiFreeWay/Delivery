@@ -3,6 +3,7 @@ package appdoor.com.delivery.presentation.view_controllers;
 
 import android.util.Log;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import javax.inject.Named;
 
 import appdoor.com.delivery.domain.Interactors.Interactor;
 import appdoor.com.delivery.domain.Interactors.Interactor1;
+import appdoor.com.delivery.domain.models.OrderedFoodDomain;
 import appdoor.com.delivery.domain.models.TableDomain;
 import appdoor.com.delivery.presentation.app.DeliveryApplication;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
@@ -19,8 +21,6 @@ import rx.schedulers.Schedulers;
 
 public class FragmentEntranceCtrl {
 
-    private final TableDomain RELEASE_TABLE = null;
-
     @Inject @Named(ActivityModule.GET_TABLE_KEY)
     Interactor1<TableDomain, Integer> mGetTable;
     @Inject @Named(ActivityModule.POST_TABLE_KEY)
@@ -29,6 +29,10 @@ public class FragmentEntranceCtrl {
     Interactor<TableDomain> mGetTableLocal;
     @Inject @Named(ActivityModule.PUT_TABLE_LOCAL_KEY)
     Interactor1<Void, TableDomain> mPutTableLocal;
+    @Inject @Named(ActivityModule.GET_ORDERED_KEY)
+    Interactor<List<OrderedFoodDomain>> mGetOrdered;
+    @Inject @Named(ActivityModule.EXIT_KEY)
+    Interactor<Void> mExit;
 
     private EntranceFragment mFragment;
     private boolean isNeedCancel = false;
@@ -70,7 +74,7 @@ public class FragmentEntranceCtrl {
 
     public void release() {
         mFragment.setStatusNone();
-        putTableLocal(null);
+        exit();
     }
 
     private void getTable(int number) {
@@ -102,6 +106,14 @@ public class FragmentEntranceCtrl {
     private void doOnStateOk(TableDomain table) {
         putTableLocal(table);
         mFragment.setStatusOk(table.getNumber());
+        mGetOrdered.execute()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(ordereds -> ordereds.size()>0)
+                .subscribe(ordereds -> mFragment.getMainActivity().showOrderTitle(ordereds.size()), e -> {
+                    Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentEntranceCtrl: doOnStateOk " + e.toString());
+                    e.printStackTrace();
+                });
     }
 
     private void doOnStateWait(TableDomain table) {
@@ -117,7 +129,7 @@ public class FragmentEntranceCtrl {
 
     private void doOnStateBusy() {
         mFragment.setStatusBusy();
-        putTableLocal(RELEASE_TABLE);
+        exit();
     }
 
     private void putTableLocal(TableDomain table) {
@@ -128,5 +140,15 @@ public class FragmentEntranceCtrl {
                     e.printStackTrace();
                 })
                 .subscribe();
+    }
+
+    private void exit() {
+        mExit.execute()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnCompleted(() -> mFragment.getMainActivity().hideOrderTitle())
+                .doOnError(e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentEntranceCtrl: getTable "+e.toString());
+                    e.printStackTrace();
+                }).subscribe();
     }
 }

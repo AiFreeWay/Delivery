@@ -77,5 +77,8 @@
     <ImageView
         android:id="@+id/v_foods_iv_under_line"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="2dp"
+        android:layout_below="@+id/v_foods_im_image"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

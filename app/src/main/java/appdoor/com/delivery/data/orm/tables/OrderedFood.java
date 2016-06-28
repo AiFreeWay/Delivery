@@ -16,7 +16,7 @@ public class OrderedFood {
     private int id;
 
     @DatabaseField(canBeNull = false, dataType = DataType.INTEGER, columnName = FIELD_NAME_FOOD_ID)
-    private int food_id;
+    private int foodId;
 
     @DatabaseField(canBeNull = false, dataType = DataType.INTEGER, columnName = FIELD_NAME_STATUS)
     private int status;
@@ -24,8 +24,8 @@ public class OrderedFood {
     public OrderedFood() {
     }
 
-    public OrderedFood(int food_id, int status) {
-        this.food_id = food_id;
+    public OrderedFood(int foodId, int status) {
+        this.foodId = foodId;
         this.status = status;
     }
 
@@ -37,12 +37,12 @@ public class OrderedFood {
         this.id = id;
     }
 
-    public int getFood_id() {
-        return food_id;
+    public int getFoodId() {
+        return foodId;
     }
 
-    public void setFood_id(int food_id) {
-        this.food_id = food_id;
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public int getStatus() {

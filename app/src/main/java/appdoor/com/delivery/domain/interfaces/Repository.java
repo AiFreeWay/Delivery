@@ -19,4 +19,6 @@ public interface Repository {
     void addOrderedtoCart(OrderedFoodDomain food) throws Exception;
     void cacheMenu(List<MenuItemDomain> menu) throws Exception;
     void cacheFoods(List<FoodItemDomain> foods) throws Exception;
+    List<OrderedFoodDomain> getOrderedFoods() throws Exception;
+    void exit() throws Exception;
 }

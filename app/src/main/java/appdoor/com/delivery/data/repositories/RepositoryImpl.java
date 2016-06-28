@@ -1,6 +1,7 @@
 package appdoor.com.delivery.data.repositories;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void postTable(TableDomain tableDomain) throws Exception {
-
+        mDBStore.putTable(tableDomain);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void addOrderedtoCart(OrderedFoodDomain food) throws Exception {
+        mFastStore.addOrderedFood(food);
         mDBStore.addOrderToCart(food);
     }
 
@@ -83,5 +85,21 @@ public class RepositoryImpl implements Repository {
     @Override
     public void cacheFoods(List<FoodItemDomain> foods) throws Exception {
         mDBStore.cacheFoods(foods);
+    }
+
+    @Override
+    public List<OrderedFoodDomain> getOrderedFoods() throws Exception {
+        List<OrderedFoodDomain> orderedFood = mFastStore.getOrderedFoods();
+        if (orderedFood.size() != mDBStore.getOrderedFoodsCount()) {
+            orderedFood = mDBStore.getOrderedFoods();
+            mFastStore.setOrderedFoods(orderedFood);
+        }
+        return orderedFood;
+    }
+
+    @Override
+    public void exit() throws Exception {
+        mDBStore.removeTable();
+        mDBStore.removeOrdered();
     }
 }

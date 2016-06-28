@@ -2,8 +2,12 @@ package appdoor.com.delivery.presentation.view_controllers;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
+
+import com.github.florent37.viewanimator.ViewAnimator;
 
 import java.util.List;
 
@@ -13,6 +17,7 @@ import javax.inject.Named;
 import appdoor.com.delivery.domain.Interactors.Interactor;
 import appdoor.com.delivery.domain.Interactors.Interactor1;
 import appdoor.com.delivery.domain.models.FoodItemDomain;
+import appdoor.com.delivery.domain.models.OrderedFoodDomain;
 import appdoor.com.delivery.domain.models.TableDomain;
 import appdoor.com.delivery.presentation.app.DeliveryApplication;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
@@ -26,8 +31,10 @@ public class FragmentFoodsCtrl {
     Interactor1<List<FoodItemDomain>, Integer> mGetFoods;
     @Inject @Named(ActivityModule.GET_TABLE_LOCAL_KEY)
     Interactor<TableDomain> mGetTableLocal;
-    @Inject @Named(ActivityModule.ADD_ORDER_TO_CART)
+    @Inject @Named(ActivityModule.ADD_ORDER_TO_CART_KEY)
     Interactor1<Void, FoodItemDomain> mAddOrder;
+    @Inject @Named(ActivityModule.GET_ORDERED_KEY)
+    Interactor<List<OrderedFoodDomain>> mGetOrdered;
 
     private FoodsFragment mFragment;
     private LayoutInflater mLayoutInflater;
@@ -47,14 +54,14 @@ public class FragmentFoodsCtrl {
                 });
     }
 
-    public void toOrder(FoodItemDomain data) {
+    public void toOrder(FoodItemDomain data, View animateView) {
         mGetTableLocal.execute()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(t -> t != null)
                 .flatMap(t -> mAddOrder.execute(data))
-                .doOnError(e -> Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: toOrder "+e.toString()))
-                .subscribe();
+                .subscribe((aVoid) -> doOnOrderView(animateView), e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: toOrder "+e.toString());
+                    e.printStackTrace();});
     }
 
     public LayoutInflater getLayoutInflater() {
@@ -63,5 +70,19 @@ public class FragmentFoodsCtrl {
 
     public FoodsFragment getFragment() {
         return mFragment;
+    }
+
+    private void doOnOrderView(View animateView) {
+        ViewAnimator.animate(animateView)
+                .backgroundColor(Color.parseColor("#FF9800"), Color.WHITE)
+                .duration(700)
+                .start();
+
+        mGetOrdered.execute()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(orderedFoods -> getFragment().getMainActivity().showOrderTitle(orderedFoods.size()), e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: doOnOrderView "+e.toString());
+                    e.printStackTrace();});
+
     }
 }

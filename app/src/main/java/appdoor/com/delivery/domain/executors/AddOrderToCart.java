@@ -26,6 +26,7 @@ public class AddOrderToCart implements Interactor1<Void, FoodItemDomain> {
                 orderedFood.setFood(data);
                 orderedFood.setStatus(OrderedFoodDomain.STATUS_WAIT);
                 mRepository.addOrderedtoCart(orderedFood);
+                observer.onNext(null);
             } catch (Exception e) {
                 observer.onError(e);
             }

@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.adapters.MultyAdapter;
@@ -18,6 +19,7 @@ import appdoor.com.delivery.presentation.di.components.ActivityComponent;
 import appdoor.com.delivery.presentation.di.components.DaggerActivityComponent;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
 import appdoor.com.delivery.presentation.models.AppMenuItem;
+import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
 import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import butterknife.BindView;
@@ -26,6 +28,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
 
     public static final String MENU_ITEM_KEY = "menuitemkkk";
+    public final String ORDERED_TITLE = "ЗАКАЗАНО: ";
 
     @BindView(R.id.ac_main_toolbar)
     Toolbar mToolbar;
@@ -33,6 +36,8 @@ public class MainActivity extends BaseActivity {
     DrawerLayout mDlMenu;
     @BindView(R.id.ac_main_lv_menu)
     ListView mLvMenu;
+    @BindView(R.id.spinner_nav)
+    TextView mTvOrderedTitle;
 
     private ActivityComponent mComponent;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -50,6 +55,8 @@ public class MainActivity extends BaseActivity {
         mAdapter = new MultyAdapter<AppMenuItem>(new AppMenuBinder(mViewController));
         mLvMenu.setAdapter(mAdapter);
         mLvMenu.addHeaderView(getHeaderView());
+        mTvOrderedTitle.setOnClickListener(v -> mViewController.showFragmentsFromMenu(MenuFactory.MenuItems.ORDERED));
+        hideOrderTitle();
         mViewController.start(savedInstanceState);
     }
 
@@ -107,6 +114,15 @@ public class MainActivity extends BaseActivity {
 
     public void closeMenu() {
         mDlMenu.closeDrawer(Gravity.LEFT);
+    }
+
+    public void hideOrderTitle() {
+        mTvOrderedTitle.setVisibility(View.INVISIBLE);
+    }
+
+    public void showOrderTitle(int foodsCount) {
+        mTvOrderedTitle.setVisibility(View.VISIBLE);
+        mTvOrderedTitle.setText(ORDERED_TITLE + foodsCount);
     }
 
     public void setTitle(String title) {

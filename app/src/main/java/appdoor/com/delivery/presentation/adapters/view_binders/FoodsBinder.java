@@ -79,11 +79,7 @@ public class FoodsBinder implements AbstractBinder<FoodItemDomain> {
         }
 
         view.setOnClickListener(v -> {
-            mViewController.toOrder(data);
-            ViewAnimator.animate(underLine)
-                    .backgroundColor(Color.parseColor("#FF9800"), Color.WHITE)
-                    .duration(500)
-                    .start();
+            mViewController.toOrder(data, underLine);
             });
         return view;
     }
