@@ -46,12 +46,12 @@ public class FragmentEntranceCtrl {
         mGetTableLocal.execute()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .filter(t -> t != null)
                 .subscribe(table -> {
-                    if (table != null) {
-                        spreadTable(table);
-                        if (table.getStatus() == TableDomain.STATUS_OK)
-                            getTable(table.getNumber());
-                    }
+                    spreadTable(table);
+                    if (table.getStatus() == TableDomain.STATUS_OK)
+                        getTable(table.getNumber());
+
                 }, e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentEntranceCtrl: start "+e.toString());
                     e.printStackTrace();
                 });

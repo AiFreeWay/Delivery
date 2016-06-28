@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import appdoor.com.delivery.presentation.models.AppMenuItem;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import appdoor.com.delivery.presentation.views.activities.MainActivity;
 
 public abstract class BaseFragment extends Fragment {
@@ -27,5 +28,8 @@ public abstract class BaseFragment extends Fragment {
 
     public MainActivity getMainActivity() {
         return (MainActivity) getActivity();
+    }
+    public ActivityMainCtrl getMainActivityCtrl() {
+        return ((MainActivity) getActivity()).getViewController();
     }
 }

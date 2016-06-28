@@ -58,7 +58,7 @@ public class FragmentFoodsCtrl {
         mGetTableLocal.execute()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(t -> t != null)
+                .filter(t -> t != null && t.getStatus() == TableDomain.STATUS_OK)
                 .flatMap(t -> mAddOrder.execute(data))
                 .subscribe((aVoid) -> doOnOrderView(animateView), e -> { Log.e(DeliveryApplication.UNIVERSAL_APP_ERROR_TAG, "FragmentFoodsCtrl: toOrder "+e.toString());
                     e.printStackTrace();});
