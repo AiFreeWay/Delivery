@@ -10,23 +10,25 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import appdoor.com.delivery.R;
 import appdoor.com.delivery.presentation.adapters.MultyAdapter;
-import appdoor.com.delivery.presentation.adapters.view_binders.MenuBinder;
+import appdoor.com.delivery.presentation.adapters.view_binders.AppMenuBinder;
 import appdoor.com.delivery.presentation.di.components.ActivityComponent;
 import appdoor.com.delivery.presentation.di.components.DaggerActivityComponent;
 import appdoor.com.delivery.presentation.di.modules.ActivityModule;
-import appdoor.com.delivery.presentation.models.MenuItem;
+import appdoor.com.delivery.presentation.models.AppMenuItem;
 import appdoor.com.delivery.presentation.utils.MenuFactory;
 import appdoor.com.delivery.presentation.utils.ToolbarDrawerToogle;
-import appdoor.com.delivery.presentation.view_controllers.ActivityMainController;
+import appdoor.com.delivery.presentation.view_controllers.ActivityMainCtrl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
     public static final String MENU_ITEM_KEY = "menuitemkkk";
+    public final String ORDERED_TITLE = "ЗАКАЗАНО: ";
 
     @BindView(R.id.ac_main_toolbar)
     Toolbar mToolbar;
@@ -34,11 +36,13 @@ public class MainActivity extends BaseActivity {
     DrawerLayout mDlMenu;
     @BindView(R.id.ac_main_lv_menu)
     ListView mLvMenu;
+    @BindView(R.id.spinner_nav)
+    TextView mTvOrderedTitle;
 
     private ActivityComponent mComponent;
     private ActionBarDrawerToggle mDrawerToggle;
-    private MultyAdapter<MenuItem> mAdapter;
-    private ActivityMainController mViewController;
+    private MultyAdapter<AppMenuItem> mAdapter;
+    private ActivityMainCtrl mViewController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +51,13 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         initToolbar();
         initDI();
-        mViewController = new ActivityMainController(this);
-        mAdapter = new MultyAdapter<MenuItem>(new MenuBinder(mViewController));
+        mViewController = new ActivityMainCtrl(this);
+        mAdapter = new MultyAdapter<AppMenuItem>(new AppMenuBinder(mViewController));
         mLvMenu.setAdapter(mAdapter);
         mLvMenu.addHeaderView(getHeaderView());
-        mAdapter.loadData(mViewController.getMenuItems());
-
-        if (savedInstanceState == null)
-            mViewController.showFragmentsFromMenu(MenuFactory.MenuItems.ENTRANCE);
+        mTvOrderedTitle.setOnClickListener(v -> mViewController.showFragmentsFromMenu(MenuFactory.MenuItems.ORDERED));
+        hideOrderTitle();
+        mViewController.start(savedInstanceState);
     }
 
     @Override
@@ -100,6 +103,7 @@ public class MainActivity extends BaseActivity {
 
     private void initDI() {
         mComponent = DaggerActivityComponent.builder()
+                .applicationComponent(getDeliveryApplication().getDaggerComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }
@@ -112,6 +116,15 @@ public class MainActivity extends BaseActivity {
         mDlMenu.closeDrawer(Gravity.LEFT);
     }
 
+    public void hideOrderTitle() {
+        mTvOrderedTitle.setVisibility(View.INVISIBLE);
+    }
+
+    public void showOrderTitle(int foodsCount) {
+        mTvOrderedTitle.setVisibility(View.VISIBLE);
+        mTvOrderedTitle.setText(ORDERED_TITLE + foodsCount);
+    }
+
     public void setTitle(String title) {
         mToolbar.setTitle(title);
     }
@@ -120,11 +133,11 @@ public class MainActivity extends BaseActivity {
         return mLvMenu;
     }
 
-    public MultyAdapter<MenuItem> getAdapter() {
+    public MultyAdapter<AppMenuItem> getAdapter() {
         return mAdapter;
     }
 
-    public ActivityMainController getViewController() {
+    public ActivityMainCtrl getViewController() {
         return mViewController;
     }
 }

@@ -4,6 +4,9 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
+import appdoor.com.delivery.data.orm.OrmLiteSqlHelper;
+import appdoor.com.delivery.data.repositories.RepositoryImpl;
+import appdoor.com.delivery.domain.interfaces.Repository;
 import appdoor.com.delivery.presentation.app.DeliveryApplication;
 import dagger.Module;
 import dagger.Provides;
@@ -27,5 +30,17 @@ public class ApplicationModule {
     @Singleton
     public DeliveryApplication getApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    Repository provideRepository(RepositoryImpl repository) {
+        return repository;
+    }
+
+    @Provides
+    @Singleton
+    OrmLiteSqlHelper provideOrmLiteSqlHelper() {
+        return mApplication.getSqlHelper();
     }
 }

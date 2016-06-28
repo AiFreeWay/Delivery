@@ -26,4 +26,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorOrange"
+        android:text="В ожидании подтверждения"
+        android:id="@+id/fmt_entrance_tv_busy"
+        android:visibility="invisible"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/fmt_entrance_et_table"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

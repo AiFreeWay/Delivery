@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import appdoor.com.delivery.presentation.utils.FragmentsFactory;
 
-public class MenuItem implements Serializable {
+public class AppMenuItem implements Serializable {
 
     private int iconRes;
     private int iconSelectedRes;
@@ -13,10 +13,10 @@ public class MenuItem implements Serializable {
     private FragmentsFactory.Fragments fragmentsType;
     private boolean isSelected;
 
-    public MenuItem() {
+    public AppMenuItem() {
     }
 
-    public MenuItem(int iconRes, int iconSelectedRes, String title, FragmentsFactory.Fragments fragmentsType) {
+    public AppMenuItem(int iconRes, int iconSelectedRes, String title, FragmentsFactory.Fragments fragmentsType) {
         this.iconRes = iconRes;
         this.iconSelectedRes = iconSelectedRes;
         this.title = title;

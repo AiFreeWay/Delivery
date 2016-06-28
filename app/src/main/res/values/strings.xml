@@ -4,5 +4,12 @@
     <string name="thanks">Спасибо!</string>
     <string name="fmt_main_dialog_description">1 минуту на подтверждение у администратора</string>
     <string name="ok">OK</string>
-    <string name="cancel">Отмена</string>
+    <string name="cancel">Я передумал</string>
+    <string name="order_cancel"><u>Отмена</u></string>
+    <string name="order_ok"><u>Заказать</u></string>
+    <string name="sorry">Извините</string>
+    <string name="table_busy">К сожалению стол занят</string>
+    <string name="enter">Войти</string>
+    <string name="exit">Выход</string>
+    <string name="realy_exit">Хотите выйти из-за стола?</string>
 </resources>

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import appdoor.com.delivery.presentation.views.fragments.AboutFragment;
 import appdoor.com.delivery.presentation.views.fragments.BaseFragment;
 import appdoor.com.delivery.presentation.views.fragments.EntranceFragment;
+import appdoor.com.delivery.presentation.views.fragments.FoodsFragment;
 import appdoor.com.delivery.presentation.views.fragments.MenuFragment;
 import appdoor.com.delivery.presentation.views.fragments.OrderedFragment;
 import appdoor.com.delivery.presentation.views.fragments.ServiceFragment;
@@ -27,6 +28,7 @@ public class FragmentsFactory {
         mFragmentsLIst.add(Fragments.SERIVCE.id, new ServiceFragment());
         mFragmentsLIst.add(Fragments.ORDERED.id, new OrderedFragment());
         mFragmentsLIst.add(Fragments.ABOUT.id, new AboutFragment());
+        mFragmentsLIst.add(Fragments.ABOUT.id, new AboutFragment());
 
         for (BaseFragment fragment : mFragmentsLIst) {
             Bundle bundle = new Bundle();
@@ -35,6 +37,11 @@ public class FragmentsFactory {
     }
 
     public BaseFragment getFragment(Fragments fragmentIndefinder) {
+        if (fragmentIndefinder.id == Fragments.FOODS.id) {
+            BaseFragment foodFragment = new FoodsFragment();
+            foodFragment.setArguments(new Bundle());
+            return foodFragment;
+        }
         return mFragmentsLIst.get(fragmentIndefinder.id);
     }
 
@@ -43,7 +50,8 @@ public class FragmentsFactory {
         MENU(1),
         SERIVCE(2),
         ORDERED(3),
-        ABOUT(4);
+        ABOUT(4),
+        FOODS(5);
 
         public int id;
         Fragments(int id) {
