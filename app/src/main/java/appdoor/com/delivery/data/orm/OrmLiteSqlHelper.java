@@ -26,10 +26,10 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME ="myappname.db";
     private static final int VERSION = 1;
 
-    private OrderTableDAO mOrderTableDAO = null;
-    private FoodItemDAO mFoodItemDAO = null;
-    private MenuItemDAO mMenuItemDAO = null;
-    private OrderedFoodDAO mOrderedFoodDAO= null;
+    private OrderTableDAO mOrderTableDAO;
+    private FoodItemDAO mFoodItemDAO;
+    private MenuItemDAO mMenuItemDAO;
+    private OrderedFoodDAO mOrderedFoodDAO;
 
     public OrmLiteSqlHelper(Context context) {
         super(context,DATABASE_NAME, null, VERSION);
@@ -63,25 +63,25 @@ public class OrmLiteSqlHelper extends OrmLiteSqliteOpenHelper {
     }
 
     public OrderTableDAO getOrderTableDAO() throws SQLException{
-        if(mOrderTableDAO == null)
+        if (mOrderTableDAO == null)
             mOrderTableDAO = new OrderTableDAO(getConnectionSource(), OrderTable.class);
         return mOrderTableDAO;
     }
 
     public FoodItemDAO getFoodItemDAO() throws SQLException{
-        if(mFoodItemDAO == null)
+        if (mFoodItemDAO == null)
             mFoodItemDAO = new FoodItemDAO(getConnectionSource(), FoodItem.class);
         return mFoodItemDAO;
     }
 
     public MenuItemDAO getMenuItemDAO() throws SQLException{
-        if(mMenuItemDAO == null)
+        if (mMenuItemDAO == null)
             mMenuItemDAO = new MenuItemDAO(getConnectionSource(), MenuItem.class);
         return mMenuItemDAO;
     }
 
     public OrderedFoodDAO getOrderedFoodDAO() throws SQLException{
-        if(mOrderedFoodDAO == null)
+        if (mOrderedFoodDAO == null)
             mOrderedFoodDAO = new OrderedFoodDAO(getConnectionSource(), OrderedFood.class);
         return mOrderedFoodDAO;
     }
