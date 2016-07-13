@@ -31,12 +31,6 @@ public class OrderedBinder implements AbstractBinder<OrderedFoodDomain> {
     TextView mTvSubTitle;
     @BindView(R.id.v_ordered_tv_description)
     TextView mTvDescription;
-    @BindView(R.id.v_ordered_tv_favorite)
-    TextView mTvFavorite;
-    @BindView(R.id.v_ordered_iv_favorite)
-    ImageView mIvFavorite;
-    @BindView(R.id.v_ordered_iv_under_line)
-    ImageView mIvUnderline;
     
     private FragmentOrderedCtrl mViewController;
     private ListView mParent;
@@ -66,16 +60,6 @@ public class OrderedBinder implements AbstractBinder<OrderedFoodDomain> {
         mTvTitle.setText(food.getTitle());
         mTvSubTitle.setText(food.getSubTitle()+RUB);
         mTvDescription.setText(food.getDescription());
-
-        if (food.getLikes() > 0) {
-            mTvFavorite.setVisibility(View.VISIBLE);
-            mIvFavorite.setVisibility(View.VISIBLE);
-            mTvFavorite.setText(food.getLikes()+EMPTY_LINE);
-        } else {
-            mTvFavorite.setVisibility(View.INVISIBLE);
-            mIvFavorite.setVisibility(View.INVISIBLE);
-        }
-
         return view;
     }
 }
